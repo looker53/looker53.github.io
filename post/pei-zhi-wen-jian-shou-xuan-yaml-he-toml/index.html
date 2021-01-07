@@ -1,0 +1,353 @@
+<html>
+<head>
+    <meta charset="utf-8"/>
+<meta name="description" content=""/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>配置文件，首选 YAML 和 TOML | Gridea</title>
+
+<link rel="shortcut icon" href="https://looker53.github.io/favicon.ico?v=1610027219034">
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://looker53.github.io/styles/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dockerfile.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dart.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script>
+<!-- DEMO JS -->
+<!--<script src="media/scripts/index.js"></script>-->
+
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <nav class="navbar navbar-expand-lg">
+    <div class="navbar-brand">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            Gridea
+        </div>
+    </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+                <div class="nav-item">
+                    
+                        <a href="/" class="menu gt-a-link">
+                            首页
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/archives" class="menu gt-a-link">
+                            归档
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/tags" class="menu gt-a-link">
+                            标签
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/post/about" class="menu gt-a-link">
+                            关于
+                        </a>
+                    
+                </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1610027219034" action="/search/index.html">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    配置文件，首选 YAML 和 TOML
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2021-01-07 ·
+                    </time>
+                    
+                </div>
+                <div class="post-content">
+                    <h4 id="1-配置文件是什么">1. 配置文件是什么？</h4>
+<p><strong>配置文件是用于配置计算机程序的参数和初始化设置的文件</strong>。如果没有这些配置，程序可能无法执行。</p>
+<p>比如现在你要开发一款 <em>app</em>, 当部署这款 <em>app</em> 时，你需要配置它的 host 地址、数据库地址、数据库名称，这些都可以作为配置项写入配置文件。当项目上线，需要换一个环境运行时，只需要修改配置文件，不需要去代码当中到处查找。</p>
+<p>配置文件通常是 <em>key/value</em> 的形式存在，任何支持解析 <em>key/value</em> 形式的文件都是可以作为配置文件的。</p>
+<p>现在主流的配置文件格式非常多，比如：</p>
+<ul>
+<li><em>Linux</em> 系统中的 <em>.bashrc</em></li>
+<li><em>YAML</em></li>
+<li><em>TOML</em></li>
+<li><em>JSON</em></li>
+<li><em>XML</em></li>
+<li><em>INI</em></li>
+</ul>
+<p>这些都是常用的配置文件格式。接下来，我们来看看用得最多的几种配置文件怎么编写，又是如何通过 <em>python</em> 语言解析的。</p>
+<h4 id="2-yaml">2. yaml</h4>
+<pre><code class="language-yaml"># default
+host: &quot;http://www.iswy.com&quot;
+# 数据库
+db:
+  host: &quot;http://www.iswydb.com&quot;
+  port: 3306
+  name: &quot;py&quot;
+# 账号
+users:
+  -
+    name: &quot;iswy&quot;
+    password: &quot;123456&quot;
+  -
+    name: &quot;iswy_wang&quot;
+    password: &quot;666666&quot;
+</code></pre>
+<p><em>YAML</em> 是目前最推荐的配置文件格式。优秀的配置文件标准它几乎都有：</p>
+<ul>
+<li>容易阅读和修改，支持注释。</li>
+<li>支持丰富的数据类型。</li>
+<li>不同格式的明确表达。</li>
+</ul>
+<p><em>yaml</em> 使用时需要注意：</p>
+<ol>
+<li><em>yaml</em> 强制缩进。虽然不规定具体缩进几个空格，但是同一级的内容要保持相同的缩进。</li>
+<li>冒号后面一定要加空格， 否则无法解析。</li>
+</ol>
+<p><em>python</em> 解析 yaml 可以使用 <em>pyyaml</em> 库，操作和标准的文件操作非常类似:</p>
+<pre><code class="language-python">import yaml
+
+with open('api.yml', encoding='utf-8') as f:
+    data = yaml.load(f, Loader=yaml.SafeLoader)
+</code></pre>
+<p>得到的 <em>data</em> 就是解析后的数据，在 <em>python</em> 当中，它是一个嵌套的字典：</p>
+<pre><code>{
+    'db': {
+        'host': 'http://www.iswydb.com', 
+        'name': 'py', 'port': 3306
+    },
+    'host': 'http://www.iswy.com',
+    'users': [
+        {'name': 'iswy', 'password': '123456'},
+        {'name': 'iswy_a', 'password': '666666'}
+    ]
+}
+</code></pre>
+<p>想获取某一项配置，再通过字典的操作获取：</p>
+<pre><code>db_host = data['db']['host']
+</code></pre>
+<h4 id="3-ini">3. ini</h4>
+<pre><code class="language-ini">[default]
+host=http://www.iswy.com
+[db]
+host=&quot;http://www.iswydb.com&quot;
+port=3306
+name=&quot;py&quot;
+</code></pre>
+<p><em>ini</em> 格式是用得非常多的配置文件格式，有大量的项目都使用 ini 编写配置文件，它比较适合配置项的数据类型只是简单的字符串、数字的情况，如果涉及数组和 <em>key/value</em> 的嵌套，会比较吃力。</p>
+<p><em>ini</em> 格式有几个概念需要了解。用 <code>[]</code> 的叫做 section, 用来对配置项进行分组， 下面的 port 和 name 叫做 option。 如果想获取某一个 option，必须先要获取 section。</p>
+<p>通过 python解析 ini：</p>
+<pre><code class="language-python">from configparser import ConfigParser
+
+parser = ConfigParser()
+parser.read(&quot;api.ini&quot;, encoding=&quot;utf-8&quot;)
+
+host = parser.get(&quot;default&quot;, &quot;host&quot;)
+db_host = parser.get(&quot;db&quot;, &quot;host&quot;)
+</code></pre>
+<p>ini 配置格式有几个注意点：</p>
+<ol>
+<li>section 无法嵌套， 嵌套后的效果和没有嵌套是一样的。</li>
+</ol>
+<pre><code>[default]
+    [db]
+    host=http://www.iswydb.com
+</code></pre>
+<p>获取这个 host 的方式不会发生任何变化，default 并不是 db 的父级。</p>
+<ol start="2">
+<li>字符串的表示不要加引号，否则引号也会被解析出来。</li>
+</ol>
+<pre><code>[db]
+host = &quot;http://www.iswydb.com&quot;
+host2 = http://www.iswydb.com
+</code></pre>
+<p>得到的结果：</p>
+<pre><code>&quot;http://www.iswydb.com&quot;
+http://www.iswydb.com
+</code></pre>
+<ol start="3">
+<li><code>=</code> 可以用空格，也可以不用。</li>
+</ol>
+<h4 id="4-json">4. json</h4>
+<pre><code class="language-json">{
+  &quot;db&quot;: {
+    &quot;host&quot;: &quot;http://www.db.com&quot;,
+    &quot;port&quot;: 3306
+  },
+  &quot;host&quot;: &quot;http://www.iswy.com&quot;
+}
+</code></pre>
+<p>json 在配置文件中的使用频率是上面提到的格式中最低的，原因有几个：</p>
+<ol>
+<li>不支持注释，</li>
+<li>花括号太多，影响可读性。</li>
+</ol>
+<p>通过 python 解析 json 文件：</p>
+<pre><code class="language-python">import json
+
+with open('api.json', encoding='utf-8') as f:
+    data = json.loads(f.read())
+</code></pre>
+<h4 id="5-toml">5. toml</h4>
+<pre><code class="language-TOML">host = 'http://www.iswy.com'
+
+# 数据库
+[db]
+host = &quot;http://www.iswydb.com&quot;
+port = 3306
+name = &quot;py&quot;
+
+# 账号
+users = [
+    {name = 'iswy', password = '123456'},
+    {name = 'iswy', password = '666666'}
+]
+</code></pre>
+<p>TOML 结合了 ini 和 yaml 的优点：</p>
+<ol>
+<li>TOML 的写法和 ini 几乎一致，切换成本为 0 ；</li>
+<li>支持所有的 YAML 数据类型，甚至支持时间格式；</li>
+<li>支持像 ini 的 section 分组，只是在 TOML 中，它叫做 table;</li>
+<li>解析像 YAML 那样简单。</li>
+</ol>
+<p>在 python 中解析 TOML 先安装:</p>
+<pre><code>pip install toml
+</code></pre>
+<p>操作和普通文件的方式非常相似：</p>
+<pre><code class="language-python">import toml
+
+with open('api.toml', encoding='utf-8') as f:
+    data = toml.loads(f.read())
+</code></pre>
+<p>TOML 的写法非常灵活，后面再出教程。</p>
+<h4 id="6-什么样的数据适合放在配置文件里">6. 什么样的数据适合放在配置文件里</h4>
+<p>配置文件的作用主要是给即将运行的程序提供初始值，凡是在<strong>环境发生改变时需要修改的选项</strong>就可以设置成配置项。比如上面的域名 host 和数据库设置。 当需要把程序部署到另外的环境，域名和数据库都有可能发生变化，此时可以设置成配置项。</p>
+<p>什么样的数据不适合放在配置文件呢？ 每次运行程序都需要检查的，最好不要放在配置文件中，而是通过编程语言进行设置，比如某个依赖文件的路径。</p>
+<h4 id="7-什么要的配置文件格式是好格式">7. 什么要的配置文件格式是好格式</h4>
+<ul>
+<li>容易阅读和修改、最好支持注释。 所以 json 不是一种好的格式。</li>
+<li>易于解析，支持多数据类型。 INI 和 xml 不合适。</li>
+<li>不同格式用不同的表达。 YAML 和 TOML 做得非常好。</li>
+</ul>
+<p><strong>用配置文件，选 YAML 和 TOML。</strong></p>
+<h4 id="参考文献">参考文献</h4>
+<ul>
+<li>https://jhall.io/posts/best-config-file-formats/</li>
+</ul>
+
+                </div>
+            </article>
+        </div>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://looker53.github.io/post/pytest-gettting-started/" class="post-title gt-a-link">
+                    python单元测试框架 pytest 入门
+                </a>
+            </div>
+        
+
+        
+
+        
+
+        
+            <script src='https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js'></script>
+
+<style>
+	div#vcomments{
+		width:100%;
+		max-width: 1000px;
+		padding: 2.5%
+	}
+</style>
+
+
+	<div id="vcomments"></div>
+
+<script>
+	new Valine({
+		el: '#vcomments',
+		appId: '',
+		appKey: '',
+		avatar: '',
+		pageSize: 5,
+		recordIp: false,
+		placeholder: 'Just Go Go',
+		visitor: false,
+	});
+</script>
+
+        
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first">温故而知新</div>
+    <div class="social-container">
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+    </div>
+    <div>
+        Theme by <a href="https://imhanjie.com/" target="_blank">imhanjie</a>, Powered by <a
+                href="https://github.com/getgridea/gridea" target="_blank">Gridea | <a href="https://looker53.github.io/atom.xml" target="_blank">RSS</a></a>
+    </div>
+</div>
+
+<script>
+  hljs.initHighlightingOnLoad()
+</script>
+
+    </div>
+</div>
+</body>
+</html>
