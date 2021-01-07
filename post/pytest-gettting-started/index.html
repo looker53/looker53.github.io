@@ -1,22 +1,116 @@
-<?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom">
-    <id>https://looker53.github.io</id>
-    <title>Gridea</title>
-    <updated>2021-01-07T13:26:30.551Z</updated>
-    <generator>https://github.com/jpmonette/feed</generator>
-    <link rel="alternate" href="https://looker53.github.io"/>
-    <link rel="self" href="https://looker53.github.io/atom.xml"/>
-    <subtitle>温故而知新</subtitle>
-    <logo>https://looker53.github.io/images/avatar.png</logo>
-    <icon>https://looker53.github.io/favicon.ico</icon>
-    <rights>All rights reserved 2021, Gridea</rights>
-    <entry>
-        <title type="html"><![CDATA[python单元测试框架 pytest 入门]]></title>
-        <id>https://looker53.github.io/post/pytest-gettting-started/</id>
-        <link href="https://looker53.github.io/post/pytest-gettting-started/">
-        </link>
-        <updated>2021-01-07T12:14:54.000Z</updated>
-        <content type="html"><![CDATA[<h3 id="1-引言">1、引言</h3>
+<html>
+<head>
+    <meta charset="utf-8"/>
+<meta name="description" content=""/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>python单元测试框架 pytest 入门 | Gridea</title>
+
+<link rel="shortcut icon" href="https://looker53.github.io/favicon.ico?v=1610025985619">
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://looker53.github.io/styles/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dockerfile.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dart.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script>
+<!-- DEMO JS -->
+<!--<script src="media/scripts/index.js"></script>-->
+
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <nav class="navbar navbar-expand-lg">
+    <div class="navbar-brand">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            Gridea
+        </div>
+    </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+                <div class="nav-item">
+                    
+                        <a href="/" class="menu gt-a-link">
+                            首页
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/archives" class="menu gt-a-link">
+                            归档
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/tags" class="menu gt-a-link">
+                            标签
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/post/about" class="menu gt-a-link">
+                            关于
+                        </a>
+                    
+                </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1610025985619" action="/search/index.html">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    python单元测试框架 pytest 入门
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2021-01-07 ·
+                    </time>
+                    
+                        <a href="https://looker53.github.io/tag/GkoFI8qH-/" class="post-tags">
+                            # python
+                        </a>
+                    
+                        <a href="https://looker53.github.io/tag/VXV_W9-dbU/" class="post-tags">
+                            # pytest
+                        </a>
+                    
+                        <a href="https://looker53.github.io/tag/jr4f84iIgJ/" class="post-tags">
+                            # 测试
+                        </a>
+                    
+                </div>
+                <div class="post-content">
+                    <h3 id="1-引言">1、引言</h3>
 <p>我有一个朋友是做Python自动化测试的。前几天他告诉我去参加一个大厂面试被刷了。</p>
 <p>我问他是有没有总结被刷下来的原因。他说面试官问了一些 pytest 单元测试框架相关的知识，包括什么插件系统和用力筛选。但是他所在的公司用的技术是基于 unittest 的,没有用过 pytest。</p>
 <p>我跟他说你可以和技术面试官说明，在实际过程当中你没有使用过 pytest，但是你可以后面再学。这哥们说：我就是这样跟面试官说的，但是面试官告诉我 pytest 现在已经是行业里面的主流，还在坚持用 unittest 说明我的技术已经过时了，没有跟上现在测试领域的发展。</p>
@@ -181,6 +275,77 @@ def test_add(a, b, expected):
 <p>当运行完用例以后，你可以在当前目录下找到一个 report.html 的文件，打开就可以查看测试报告了。</p>
 <figure data-type="image" tabindex="7"><img src="https://looker53.github.io/post-images/image-20201221181320782.png" alt="image-20201221181320782" loading="lazy"></figure>
 <p>pytest 之所以成为主流，有很多的原因，其中最重要的一个原因是因为其强大的插件系统。任何一个程序员，只要遵循一些简单的规范，就可以轻易的编写插件。后面我们再跟大家深入去研究 pytest 当中的夹具系统，插件系统和钩子函数这些特性。</p>
-]]></content>
-    </entry>
-</feed>
+
+                </div>
+            </article>
+        </div>
+
+        
+
+        
+
+        
+
+        
+            <script src='https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js'></script>
+
+<style>
+	div#vcomments{
+		width:100%;
+		max-width: 1000px;
+		padding: 2.5%
+	}
+</style>
+
+
+	<div id="vcomments"></div>
+
+<script>
+	new Valine({
+		el: '#vcomments',
+		appId: '',
+		appKey: '',
+		avatar: '',
+		pageSize: 5,
+		recordIp: false,
+		placeholder: 'Just Go Go',
+		visitor: false,
+	});
+</script>
+
+        
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first">温故而知新</div>
+    <div class="social-container">
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+    </div>
+    <div>
+        Theme by <a href="https://imhanjie.com/" target="_blank">imhanjie</a>, Powered by <a
+                href="https://github.com/getgridea/gridea" target="_blank">Gridea | <a href="https://looker53.github.io/atom.xml" target="_blank">RSS</a></a>
+    </div>
+</div>
+
+<script>
+  hljs.initHighlightingOnLoad()
+</script>
+
+    </div>
+</div>
+</body>
+</html>
