@@ -1,0 +1,271 @@
+<html>
+<head>
+    <meta charset="utf-8"/>
+<meta name="description" content=""/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>使用 python 和 selenium 做浏览器兼容测试 | WYZ-Python</title>
+
+<link rel="shortcut icon" href="https://looker53.github.io/favicon.ico?v=1611566545279">
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://looker53.github.io/styles/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dockerfile.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dart.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script>
+<!-- DEMO JS -->
+<!--<script src="media/scripts/index.js"></script>-->
+
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <nav class="navbar navbar-expand-lg">
+    <div class="navbar-brand">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            WYZ-Python
+        </div>
+    </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+                <div class="nav-item">
+                    
+                        <a href="/" class="menu gt-a-link">
+                            首页
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/archives" class="menu gt-a-link">
+                            归档
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/tags" class="menu gt-a-link">
+                            标签
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/post/about" class="menu gt-a-link">
+                            关于
+                        </a>
+                    
+                </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1611566545279" action="/search/index.html">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    使用 python 和 selenium 做浏览器兼容测试
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2021-01-07 ·
+                    </time>
+                    
+                        <a href="https://looker53.github.io/tag/GkoFI8qH-/" class="post-tags">
+                            # python
+                        </a>
+                    
+                        <a href="https://looker53.github.io/tag/VXV_W9-dbU/" class="post-tags">
+                            # pytest
+                        </a>
+                    
+                        <a href="https://looker53.github.io/tag/jr4f84iIgJ/" class="post-tags">
+                            # 测试
+                        </a>
+                    
+                </div>
+                <div class="post-content">
+                    <p>在进行web端测试的时候，为了保证网站能在不同的浏览器都有一个良好的表现，我们通常会进行浏览器的兼容测试。浏览器兼容测试的工具非常非常多，比如说大名鼎鼎的 browserling。但是在自动化测试中如何实现浏览器的兼容测试，却没有太多的参考教程，绝大多数的教程都是介绍几个selenium的API，然后就让你自己去拓展，丝毫没有提到通过不同的浏览器运行自动化测试代码的问题。</p>
+<p>那么，同一套自动化测试的代码，能不能通过简单的配置，就能启动不同的浏览器分别进行测试呢？我写了几个简单的demo，证实通过一些简单的配置是可以做到浏览器兼容测试的，下面我把具体的过程分享出来。</p>
+<h3 id="1-测试">1. 测试</h3>
+<p>首先我们需要选定一门编程语言和测试框架。我们就使用Python语言的pytest进行测试，然后使用selenium这个工具去控制浏览器的运行。因为每一个测试用例，我们都需要开启和关闭浏览器，所以开关浏览器的动作可以设置成前置条件（Setup）和后置清理（Teardown），在pytest的这个框架当中，我们使用夹具(fixture)实现浏览器的开关。</p>
+<pre><code class="language-python"># content of conftest.py
+from selenium import webdriver
+
+@pytest.fixture()
+def browser():
+    driver = webdriver.Chrome()
+    yield driver
+    driver.quit()
+</code></pre>
+<p>在一个 conftest.py 的文件当中，我们定义一个browser夹具。夹具在本质上来说是一个函数，我们只需要在这个函数名上面加一个装饰器，声明这是一个夹具就可以了。在函数当中，通过 yield 返回浏览器对象，业务的之前的就是前置条件，必要的之后的就是后置清理。</p>
+<p>在这个例子当中，yield之前启动一个浏览器，yield之后关掉浏览器。</p>
+<blockquote>
+<p>注意：夹具放到conftest.py这个文件当中，换成其他的文件名是不可以的。</p>
+</blockquote>
+<p>准备好夹具以后，开始编写测试用例。为了方便说明，在测试用例当中，我们只做一件事情，就是打开一个网页。</p>
+<pre><code class="language-python">def test_demo(browser):
+    browser.get(&quot;http://www.baidu.com&quot;)
+</code></pre>
+<p>测试用例是一个以test_开头的函数，这个函数的参数就是我们前面定义好的测试夹具。在执行测试用例函数之前,   程序会先调用测试夹具得到一个浏览器，在测试用例函数执行之后，测试夹具会把浏览器关掉。</p>
+<p>现在我们可以直接在文件下通过pytest命令运行测试用例，此时你可以看到一个谷歌浏览器打开并访问了页面。</p>
+<figure data-type="image" tabindex="1"><img src="https://looker53.github.io/post-images/image-20210105171355732.png" alt="image-20210105171355732" loading="lazy"></figure>
+<h3 id="2-参数化实现兼容测试">2. 参数化实现兼容测试</h3>
+<p>但是现在这个测试夹具不能满足要求，因为它只初始化了一个chrome浏览器，并不能动态的改成其他浏览器。而测试夹具函数当中，我们是不能随意传参数的。但是要实现浏览器的兼容测试，必须每次运行browser测试夹具时动态传递浏览器名称。</p>
+<figure data-type="image" tabindex="2"><img src="https://looker53.github.io/post-images/image-20210105171607881.png" alt="image-20210105171607881" loading="lazy"></figure>
+<p>实现的第一种方式是通过夹具的参数化。 实现了夹具参数化以后，每次程序先会用其中的一个参数运行所有的测试用例，再换成其他的参数运行用例。</p>
+<pre><code class="language-python">from selenium import webdriver
+
+browsers = {
+    &quot;firefox&quot;: webdriver.Firefox,
+    &quot;chrome&quot;: webdriver.Chrome,
+}
+
+@pytest.fixture(params=browsers.keys())
+def browser(request):
+    browser_name = request.param
+    driver = browsers.get(browser_name)()
+    yield driver
+    driver.quit()
+</code></pre>
+<p>在这里例子中，我们先把浏览器的名称和要调用的webdriver对象绑定在一起，存在browsers这个字典当中。  然后通过params参数获取broswer.keys(), 也就是所有可以使用的浏览器的名称。当程序运行以后，会自动先使用firefox名称，启动火狐浏览器运行测试用例，再换成chrome浏览器运行用例。如果还有更多的浏览器需要测试兼容性，只需要把他们添加browsers当中。</p>
+<figure data-type="image" tabindex="3"><img src="https://looker53.github.io/post-images/fixture-paramatrized.gif" alt="" loading="lazy"></figure>
+<h3 id="3-命令行指定浏览器">3. 命令行指定浏览器</h3>
+<p>在上面的例子中，所有的浏览器都被提前配置到 browsers 变量当中，在运行自动化测试脚本后，所有的浏览器都会依次执行。但是有时候我们并不想这么干。我们就想指定浏览器去跑，又不想频繁修改代码，最省心的方式就是配置一个命令行参数。</p>
+<p>pytest要自定义命令行参数非常的简单，只需要在pytest_addoption这个钩子函数中添加命令行参数就可以， 这个钩子函数会收集所有的选项，把值保存到config当中。现在我们给 pytest 自定义一个<code>--browser</code>的命令行参数：</p>
+<pre><code class="language-python">def pytest_addoption(parser):
+    parser.addoption(
+        &quot;--browser&quot;,
+        action=&quot;store&quot;,
+        metavar=&quot;browsername&quot;,
+        default=None,
+        help=&quot;config the browser to run&quot;,
+    )
+</code></pre>
+<p>配置好命令行参数以后，就可以在运行pytest的时候指定哪个浏览器运行了：</p>
+<pre><code>pytest --browser=chrome
+</code></pre>
+<p>但是现在如果直接运行的话，程序是无法根据你的参数去运行对应的浏览器的。还要改写browser测试夹具，从config当中获取浏览器名称：</p>
+<pre><code class="language-python">browsers = {
+    &quot;firefox&quot;: webdriver.Firefox,
+    &quot;chrome&quot;: webdriver.Chrome,
+}
+
+@pytest.fixture()
+def browser(pytestconfig):
+    browser_name = pytestconfig.getoption('browser')
+    if browser_name not in browsers:
+        raise ValueError(f&quot;browser {browser_name} not supported&quot;)
+    driver = browsers.get(browser_name)()
+    yield driver
+    driver.quit()
+</code></pre>
+<p>pytestconfig是pytest自带的测试夹具，可以作为参数放到其他的家具当中，它的作用是获取所有的配置信息。当通过命令行输入浏览器名称以后，就被保存到了pytestconfig这个夹具当中，我们要做的就是通过pytestconfig.getoption(&quot;browser&quot;) 获取broswser这个命令行参数的值，然后去调用对应的浏览器。</p>
+<h4 id="文献">文献</h4>
+<p>https://www.infoq.cn/article/lgrzzui5ee3sne2ntvjw</p>
+
+                </div>
+            </article>
+        </div>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://looker53.github.io/post/pei-zhi-wen-jian-shou-xuan-yaml-he-toml/" class="post-title gt-a-link">
+                    配置文件，首选 YAML 和 TOML
+                </a>
+            </div>
+        
+
+        
+
+        
+
+        
+            <script src='https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js'></script>
+
+<style>
+	div#vcomments{
+		width:100%;
+		max-width: 1000px;
+		padding: 2.5%
+	}
+</style>
+
+
+	<div id="vcomments"></div>
+
+<script>
+	new Valine({
+		el: '#vcomments',
+		appId: '',
+		appKey: '',
+		avatar: '',
+		pageSize: 5,
+		recordIp: false,
+		placeholder: 'Just Go Go',
+		visitor: false,
+	});
+</script>
+
+        
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first"></div>
+    <div class="social-container">
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        
+    </div>
+    <div>
+        Theme by <a href="https://imhanjie.com/" target="_blank">imhanjie</a>, Powered by <a
+                href="https://github.com/getgridea/gridea" target="_blank">Gridea | <a href="https://looker53.github.io/atom.xml" target="_blank">RSS</a></a>
+    </div>
+</div>
+
+<script>
+  hljs.initHighlightingOnLoad()
+</script>
+
+    </div>
+</div>
+</body>
+</html>

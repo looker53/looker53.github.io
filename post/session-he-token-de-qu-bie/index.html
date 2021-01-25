@@ -1,11 +1,10 @@
 <html>
-
 <head>
     <meta charset="utf-8"/>
 <meta name="description" content=""/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-<title>友情链接 - WYZ-Python</title>
+<title>session和token的区别 | WYZ-Python</title>
 
 <link rel="shortcut icon" href="https://looker53.github.io/favicon.ico?v=1611566545279">
 
@@ -26,12 +25,11 @@
 
 
 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
 </head>
-
 <body>
 <div class="main gt-bg-theme-color-first">
-        <div class="main-content">
-            <nav class="navbar navbar-expand-lg">
+    <nav class="navbar navbar-expand-lg">
     <div class="navbar-brand">
         <img class="user-avatar" src="/images/avatar.png" alt="头像">
         <div class="site-name gt-c-content-color-first">
@@ -87,28 +85,88 @@
     </div>
 </nav>
 
-            <div class="post-container">
-                <div class="post-detail">
-                    <article>
-                        <!-- <div class="post-content-wrapper"> -->
-                            <div class="post-content">
-                                <div class="friends-desc">
-                                    
-                                </div>
-                                <h3 id="linklist">友链列表</h3>
-                                
-                                    
-                                
-                            </div>
-                        <!-- </div> -->
-                    </article>
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    session和token的区别
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2021-01-16 ·
+                    </time>
+                    
+                        <a href="https://looker53.github.io/tag/EYo7KcNtC/" class="post-tags">
+                            # 计算机基础
+                        </a>
+                    
                 </div>
-                
+                <div class="post-content">
+                    <h3 id="session">session</h3>
+<figure data-type="image" tabindex="1"><img src="D:/data/typora-pic/image-20210116215441669.png" alt="image-20210116215441669" loading="lazy"></figure>
+<h3 id="session-消耗太多存储资源">session 消耗太多存储资源</h3>
+<figure data-type="image" tabindex="2"><img src="D:/data/typora-pic/image-20210116220152663.png" alt="image-20210116220152663" loading="lazy"></figure>
+<p>当碰到大量的用户，需要用到服务器集群和跨域。 数据同步和session共享。</p>
+<h3 id="token">token</h3>
+<p>就是要解决不需要在服务端存储，也可以识别用户。</p>
+<p>而解决问题的关键，就是签名。</p>
+<figure data-type="image" tabindex="3"><img src="D:/data/typora-pic/image-20210118142338560.png" alt="image-20210118142338560" loading="lazy"></figure>
+<h3 id="token-不能强制失效">token 不能强制失效</h3>
+<p>session 是可以强制失效的，直接删除服务端的用户数据。</p>
+<p>token 是统一印发的，每张除了用户信息和过期时间不一样，都是相同的。</p>
+<p>如果因为一些特殊原因想让令牌强制失效，也需要在服务端保存。 这样每次在服务端，还是要存储令牌数据，只是比 session 会少一些。</p>
+<figure data-type="image" tabindex="4"><img src="D:/data/typora-pic/image-20210118143422940.png" alt="image-20210118143422940" loading="lazy"></figure>
+<h3 id="token-可以存在-cookie-中吗">token 可以存在 cookie 中吗？</h3>
+<p>可以</p>
+<h3 id="token-是怎么生成的">token 是怎么生成的</h3>
+
+                </div>
+            </article>
+        </div>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://looker53.github.io/post/wo-zuo-liao-hui-shi-pin-gao-su-ni-xu-yao-yong-dao-na-xie-gong-ju/" class="post-title gt-a-link">
+                    制作一个视频需要用到哪些工具
+                </a>
             </div>
+        
+
+        
+
+        
+
+        
+            <script src='https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js'></script>
+
+<style>
+	div#vcomments{
+		width:100%;
+		max-width: 1000px;
+		padding: 2.5%
+	}
+</style>
 
 
+	<div id="vcomments"></div>
 
-            <div class="site-footer gt-c-content-color-first">
+<script>
+	new Valine({
+		el: '#vcomments',
+		appId: '',
+		appKey: '',
+		avatar: '',
+		pageSize: 5,
+		recordIp: false,
+		placeholder: 'Just Go Go',
+		visitor: false,
+	});
+</script>
+
+        
+
+        <div class="site-footer gt-c-content-color-first">
     <div class="slogan gt-c-content-color-first"></div>
     <div class="social-container">
         
@@ -138,8 +196,7 @@
   hljs.initHighlightingOnLoad()
 </script>
 
-        </div>
     </div>
+</div>
 </body>
-
 </html>
