@@ -4,7 +4,7 @@
 <meta name="description" content=""/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-<title>faker库生成数据 | WYZ-Python</title>
+<title>使用 python 操作数据库，只需要掌握 dataset | WYZ-Python</title>
 
 <link rel="shortcut icon" href="https://looker53.github.io/favicon.ico?v=1611669682098">
 
@@ -89,69 +89,97 @@
         <div class="post-detail gt-bg-theme-color-second">
             <article class="gt-post-content">
                 <h2 class="post-title">
-                    faker库生成数据
+                    使用 python 操作数据库，只需要掌握 dataset
                 </h2>
                 <div class="post-info">
                     <time class="post-time gt-c-content-color-first">
-                        · 2021-01-22 ·
+                        · 2021-01-26 ·
                     </time>
                     
-                        <a href="https://looker53.github.io/tag/jr4f84iIgJ/" class="post-tags">
-                            # 测试
+                        <a href="https://looker53.github.io/tag/NM0FR9Nrf/" class="post-tags">
+                            # 数据库
+                        </a>
+                    
+                        <a href="https://looker53.github.io/tag/GkoFI8qH-/" class="post-tags">
+                            # python
                         </a>
                     
                 </div>
                 <div class="post-content">
-                    <p>faker库用于生成伪造的数据。</p>
-<h4 id="设置中文">设置中文</h4>
-<pre><code class="language-python">from faker import Faker
-fk = Faker(locale='zh_CN')
+                    <p>使用 python 操作数据库一般使用两种方式。</p>
+<p>方式一：通过 pymysql 这样的数据库引擎。它的优势是使用灵活，API 比较底层，自定义程度高。但是每种数据库的操作都需要单独学习用法，如果之前用的 mysql，切换到 Oracle 可能要重新学习另一个库。</p>
+<p>方式二：通过 sqlalchemy 这样的 ORM。它的优势是不同数据库通用，而且不需要写 sql 语句，而是通过面向对象的方式编写数据库操作，可读性更强。 但是 ORM 的学习成本比较高，而且通常用在开发，对于小型的脚本施展不开。</p>
+<p>dataset 是介于这两者之间的选择。 首先，对于不同的数据库，都有相同的操作，不需要像 pymysql 这样，每换一个数据库就要学习新的内容。 其次，使用起来也非常简单。在以后的数据库操作中，我会多尝试用这个库。</p>
+<h3 id="安装">安装</h3>
+<pre><code>pip install dataset
 </code></pre>
-<h4 id="设置多语言">设置多语言</h4>
-<pre><code class="language-python">from faker import Faker
-fk = Faker(locale=['zh_CN', 'en_US'])
-</code></pre>
-<h4 id="手机号码">手机号码</h4>
-<pre><code class="language-python">In [4]: fk.phone_number()
-Out[4]: '13184685252'
-</code></pre>
-<h4 id="地址">地址</h4>
-<pre><code class="language-python">In [5]: fk.company()
-Out[5]: '商软冠联信息有限公司'
-</code></pre>
-<h4 id="公司">公司</h4>
-<pre><code class="language-python">In [6]: fk.address()
-Out[6]: '广西壮族自治区通辽市沙市张路b座 217717'
-</code></pre>
-<h4 id="时间">时间</h4>
-<pre><code class="language-python">In [7]: fk.date_time()
-Out[7]: datetime.datetime(1983, 12, 8, 21, 53, 41)
-</code></pre>
-<h4 id="自定义-provider">自定义 Provider</h4>
-<p>如果发现内置的数据不是你想要的，可以自己定义实现。</p>
-<pre><code class="language-python">from faker import Faker
-from faker.providers import BaseProvider
+<h3 id="连接数据库">连接数据库</h3>
+<pre><code class="language-python">import dataset
 
-class PY36(BaseProvider):
-
-    names = ('雨泽', '鲸鱼', '猴子', '阿鸡')
-
-    def py36_name(self):
-        return self.random_element(self.names)
-
-# 添加provider
-fk = Faker(locale='zh_CN')
-fk.add_provider(PY36)
-
-print(fk.py36_name())
+url = 'mysql+pymysql://username:password@8.129.91.153:3306/database'
+db = dataset.connect(url)
 </code></pre>
-<h4 id="unique">unique</h4>
-<h4 id="seed">seed</h4>
-<h4 id="factory">Factory</h4>
-<h4 id="参考文献">参考文献</h4>
+<h3 id="数据库-uri">数据库 URI</h3>
+<p>数据库的连接信息通过一个标准格式的 URI 表示，只需要遵循以下的写法。</p>
+<figure data-type="image" tabindex="1"><img src="https://i.loli.net/2021/01/26/qB6jLpyhUv5R8x1.png" alt="database-uri" loading="lazy"></figure>
+<p>sqlite 有点特别，因为它只是本地的文件：</p>
+<pre><code class="language-python">url = 'sqlite:///path/of/mydatabase.db'
+</code></pre>
+<h3 id="获取表">获取表</h3>
+<pre><code class="language-python">from dataset import Table
+
+table: Table = db['table_name']
+</code></pre>
+<h3 id="查询一条记录">查询一条记录</h3>
+<p>得到的是一个 OrdererDict 排序字典。</p>
+<pre><code class="language-python">record = table.find_one(id=3)
+</code></pre>
+<h3 id="查询多条记录">查询多条记录</h3>
+<p>得到的是 <em>ResultIter</em> 可迭代对象。</p>
+<pre><code class="language-python">record = table.find(id=3)
+</code></pre>
+<h3 id="复杂-sql-语句">复杂 sql 语句</h3>
+<p>因为上面的操作都是基于单表操作，如果涉及到多表操作，或者一些复杂的查询并不实用。 可以使用 db.query。</p>
+<pre><code class="language-python">result = db.query('SELECT type, COUNT(*) c FROM member GROUP BY type')
+</code></pre>
+<h3 id="query-传参数">query 传参数</h3>
+<pre><code class="language-python">result = db.query('SELECT mobile_phone, leave_amount FROM member '
+                  'WHERE type = :type and leave_amount &gt; :amount',
+                  type=1, amount=90000)
+</code></pre>
+<h3 id="完整的流程">完整的流程</h3>
+<pre><code class="language-python">import dataset
+
+url = 'mysql+pymysql://future:123456@8.129.91.152:3306/futureloan'
+db = dataset.connect(url)
+table = db['member']
+record = table.find_one(id=3)
+</code></pre>
+<h3 id="插入">插入</h3>
+<pre><code class="language-python">info = dict(name='yuz', age=11, phone='18122223333')
+success = table.insert(info)
+</code></pre>
+<h3 id="更新">更新</h3>
+<pre><code class="language-python">info = dict(name='yuz', age=22, phone='12188889999')
+res = table.update(info, keys=['name'])
+</code></pre>
+<p>查找 name 等于 yuz 的记录，把他们的 age 和 phone 修改成新的数据。</p>
+<h3 id="事务">事务</h3>
+<pre><code class="language-python">with dataset.connect() as db:
+    db['user'].insert(dict(name='yuz', age=4=, phone='12188889999')
+</code></pre>
+<p>当操作失败时，所有数据会回滚到之前的记录。上面的操作等价于：</p>
+<pre><code class="language-python">db = dataset.connect()
+db.begin()
+try:
+    db['user'].insert(dict(name='yuz', age=4=, phone='12188889999')
+    db.commit()
+except:
+    db.rollback()
+</code></pre>
+<h3 id="参考">参考</h3>
 <ul>
-<li><a href="https://faker.readthedocs.io/en/master/index.html">官网</a></li>
-<li><a href="https://zhuanlan.zhihu.com/p/37173611">python最假的库</a></li>
+<li><a href="https://dataset.readthedocs.io/en/latest/index.html">官网</a></li>
 </ul>
 
                 </div>
@@ -161,8 +189,8 @@ print(fk.py36_name())
         
             <div class="next-post">
                 <div class="next gt-c-content-color-first">下一篇</div>
-                <a href="https://looker53.github.io/post/session-he-token-de-qu-bie/" class="post-title gt-a-link">
-                    session和token的区别
+                <a href="https://looker53.github.io/post/faker-ku-sheng-cheng-shu-ju/" class="post-title gt-a-link">
+                    faker库生成数据
                 </a>
             </div>
         
