@@ -1,81 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <id>https://looker53.github.io</id>
+    <id>https://yuz.one</id>
     <title>WYZ-Python</title>
-    <updated>2021-01-27T05:39:49.920Z</updated>
+    <updated>2021-01-27T05:42:31.464Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
-    <link rel="alternate" href="https://looker53.github.io"/>
-    <link rel="self" href="https://looker53.github.io/atom.xml"/>
-    <logo>https://looker53.github.io/images/avatar.png</logo>
-    <icon>https://looker53.github.io/favicon.ico</icon>
+    <link rel="alternate" href="https://yuz.one"/>
+    <link rel="self" href="https://yuz.one/atom.xml"/>
+    <logo>https://yuz.one/images/avatar.png</logo>
+    <icon>https://yuz.one/favicon.ico</icon>
     <rights>All rights reserved 2021, WYZ-Python</rights>
     <entry>
         <title type="html"><![CDATA[使用 python 操作数据库，只需要掌握 dataset]]></title>
-        <id>https://looker53.github.io/post/shi-yong-python-cao-zuo-shu-ju-ku-zhi-xu-yao-zhang-wo-dataset/</id>
-        <link href="https://looker53.github.io/post/shi-yong-python-cao-zuo-shu-ju-ku-zhi-xu-yao-zhang-wo-dataset/">
+        <id>https://yuz.one/post/shi-yong-python-cao-zuo-shu-ju-ku-zhi-xu-yao-zhang-wo-dataset/</id>
+        <link href="https://yuz.one/post/shi-yong-python-cao-zuo-shu-ju-ku-zhi-xu-yao-zhang-wo-dataset/">
         </link>
         <updated>2021-01-26T12:47:13.000Z</updated>
     </entry>
     <entry>
         <title type="html"><![CDATA[faker库生成数据]]></title>
-        <id>https://looker53.github.io/post/faker-ku-sheng-cheng-shu-ju/</id>
-        <link href="https://looker53.github.io/post/faker-ku-sheng-cheng-shu-ju/">
+        <id>https://yuz.one/post/faker-ku-sheng-cheng-shu-ju/</id>
+        <link href="https://yuz.one/post/faker-ku-sheng-cheng-shu-ju/">
         </link>
         <updated>2021-01-22T06:50:36.000Z</updated>
     </entry>
     <entry>
         <title type="html"><![CDATA[session和token的区别]]></title>
-        <id>https://looker53.github.io/post/session-he-token-de-qu-bie/</id>
-        <link href="https://looker53.github.io/post/session-he-token-de-qu-bie/">
+        <id>https://yuz.one/post/session-he-token-de-qu-bie/</id>
+        <link href="https://yuz.one/post/session-he-token-de-qu-bie/">
         </link>
         <updated>2021-01-16T13:38:24.000Z</updated>
     </entry>
     <entry>
         <title type="html"><![CDATA[制作一个视频需要用到哪些工具]]></title>
-        <id>https://looker53.github.io/post/wo-zuo-liao-hui-shi-pin-gao-su-ni-xu-yao-yong-dao-na-xie-gong-ju/</id>
-        <link href="https://looker53.github.io/post/wo-zuo-liao-hui-shi-pin-gao-su-ni-xu-yao-yong-dao-na-xie-gong-ju/">
+        <id>https://yuz.one/post/wo-zuo-liao-hui-shi-pin-gao-su-ni-xu-yao-yong-dao-na-xie-gong-ju/</id>
+        <link href="https://yuz.one/post/wo-zuo-liao-hui-shi-pin-gao-su-ni-xu-yao-yong-dao-na-xie-gong-ju/">
         </link>
         <updated>2021-01-13T06:11:17.000Z</updated>
     </entry>
     <entry>
         <title type="html"><![CDATA[感谢 Gridea，让我有动力写作]]></title>
-        <id>https://looker53.github.io/post/gan-xie-gridearang-wo-you-dong-li-xie-zuo/</id>
-        <link href="https://looker53.github.io/post/gan-xie-gridearang-wo-you-dong-li-xie-zuo/">
+        <id>https://yuz.one/post/gan-xie-gridearang-wo-you-dong-li-xie-zuo/</id>
+        <link href="https://yuz.one/post/gan-xie-gridearang-wo-you-dong-li-xie-zuo/">
         </link>
         <updated>2021-01-08T05:50:27.000Z</updated>
     </entry>
     <entry>
         <title type="html"><![CDATA[使用 mkdocs 搭建博客和编写文档]]></title>
-        <id>https://looker53.github.io/post/shi-yong-mkdocs-da-jian-bo-ke-he-bian-xie-wen-dang/</id>
-        <link href="https://looker53.github.io/post/shi-yong-mkdocs-da-jian-bo-ke-he-bian-xie-wen-dang/">
+        <id>https://yuz.one/post/shi-yong-mkdocs-da-jian-bo-ke-he-bian-xie-wen-dang/</id>
+        <link href="https://yuz.one/post/shi-yong-mkdocs-da-jian-bo-ke-he-bian-xie-wen-dang/">
         </link>
         <updated>2021-01-07T13:49:15.000Z</updated>
     </entry>
     <entry>
         <title type="html"><![CDATA[TOML 配置文件简明教程]]></title>
-        <id>https://looker53.github.io/post/toml-pei-zhi-wen-jian-jian-ming-jiao-cheng/</id>
-        <link href="https://looker53.github.io/post/toml-pei-zhi-wen-jian-jian-ming-jiao-cheng/">
+        <id>https://yuz.one/post/toml-pei-zhi-wen-jian-jian-ming-jiao-cheng/</id>
+        <link href="https://yuz.one/post/toml-pei-zhi-wen-jian-jian-ming-jiao-cheng/">
         </link>
         <updated>2021-01-07T13:44:59.000Z</updated>
     </entry>
     <entry>
         <title type="html"><![CDATA[使用 python 和 selenium 做浏览器兼容测试]]></title>
-        <id>https://looker53.github.io/post/shi-yong-python-he-selenium-zuo-liu-lan-qi-jian-rong-ce-shi/</id>
-        <link href="https://looker53.github.io/post/shi-yong-python-he-selenium-zuo-liu-lan-qi-jian-rong-ce-shi/">
+        <id>https://yuz.one/post/shi-yong-python-he-selenium-zuo-liu-lan-qi-jian-rong-ce-shi/</id>
+        <link href="https://yuz.one/post/shi-yong-python-he-selenium-zuo-liu-lan-qi-jian-rong-ce-shi/">
         </link>
         <updated>2021-01-07T13:41:10.000Z</updated>
     </entry>
     <entry>
         <title type="html"><![CDATA[配置文件，首选 YAML 和 TOML]]></title>
-        <id>https://looker53.github.io/post/pei-zhi-wen-jian-shou-xuan-yaml-he-toml/</id>
-        <link href="https://looker53.github.io/post/pei-zhi-wen-jian-shou-xuan-yaml-he-toml/">
+        <id>https://yuz.one/post/pei-zhi-wen-jian-shou-xuan-yaml-he-toml/</id>
+        <link href="https://yuz.one/post/pei-zhi-wen-jian-shou-xuan-yaml-he-toml/">
         </link>
         <updated>2021-01-07T13:36:59.000Z</updated>
     </entry>
     <entry>
         <title type="html"><![CDATA[python单元测试框架 pytest 入门]]></title>
-        <id>https://looker53.github.io/post/pytest-gettting-started/</id>
-        <link href="https://looker53.github.io/post/pytest-gettting-started/">
+        <id>https://yuz.one/post/pytest-gettting-started/</id>
+        <link href="https://yuz.one/post/pytest-gettting-started/">
         </link>
         <updated>2021-01-07T12:14:54.000Z</updated>
     </entry>

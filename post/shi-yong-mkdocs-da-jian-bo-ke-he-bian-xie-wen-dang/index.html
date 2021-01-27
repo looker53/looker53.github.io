@@ -6,10 +6,10 @@
 
 <title>使用 mkdocs 搭建博客和编写文档 | WYZ-Python</title>
 
-<link rel="shortcut icon" href="https://looker53.github.io/favicon.ico?v=1611669682098">
+<link rel="shortcut icon" href="https://yuz.one/favicon.ico?v=1611726147314">
 
 <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
-<link rel="stylesheet" href="https://looker53.github.io/styles/main.css">
+<link rel="stylesheet" href="https://yuz.one/styles/main.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css">
 
 <script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
@@ -77,7 +77,7 @@
             
         </div>
         <div style="text-align: center">
-            <form id="gridea-search-form" style="position: relative" data-update="1611669682098" action="/search/index.html">
+            <form id="gridea-search-form" style="position: relative" data-update="1611726147314" action="/search/index.html">
                 <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
                 <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
             </form>
@@ -96,7 +96,7 @@
                         · 2021-01-07 ·
                     </time>
                     
-                        <a href="https://looker53.github.io/tag/4R3sNY9ex/" class="post-tags">
+                        <a href="https://yuz.one/tag/4R3sNY9ex/" class="post-tags">
                             # 随笔
                         </a>
                     
@@ -124,22 +124,22 @@
 <pre><code class="language-bash">mkdocs new .
 </code></pre>
 <p>此时目录下会有一个 mkdocs.yml 文件和一个 docs/ 的子目录，子目录下面有一个 index.md 的文件。</p>
-<figure data-type="image" tabindex="1"><img src="https://looker53.github.io/post-images/%E4%BD%BF%E7%94%A8mkdocs%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E5%92%8C%E7%BC%96%E5%86%99%E6%96%87%E6%A1%A3/image-20201204151701164.png" alt="image-20201204151701164" loading="lazy"></figure>
+<figure data-type="image" tabindex="1"><img src="https://yuz.one/post-images/%E4%BD%BF%E7%94%A8mkdocs%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E5%92%8C%E7%BC%96%E5%86%99%E6%96%87%E6%A1%A3/image-20201204151701164.png" alt="image-20201204151701164" loading="lazy"></figure>
 <h2 id="在-mkdocs-中写文章">在 mkdocs 中写文章</h2>
 <p><code>docs/index.md</code> 文件就是整个项目的首页，在本地开启服务：</p>
 <pre><code class="language-bash">mkdocs serve
 </code></pre>
 <p>通过浏览器访问 <code>http://localhost:8000</code>， 就可以看到 index.md 当中的内容了。</p>
-<figure data-type="image" tabindex="2"><img src="https://looker53.github.io/post-images/%E4%BD%BF%E7%94%A8mkdocs%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E5%92%8C%E7%BC%96%E5%86%99%E6%96%87%E6%A1%A3/image-20201204152132584.png" alt="image-20201204152132584" loading="lazy"></figure>
+<figure data-type="image" tabindex="2"><img src="https://yuz.one/post-images/%E4%BD%BF%E7%94%A8mkdocs%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E5%92%8C%E7%BC%96%E5%86%99%E6%96%87%E6%A1%A3/image-20201204152132584.png" alt="image-20201204152132584" loading="lazy"></figure>
 <p>如果有新的文章，直接在 docs 目录下创建 markdown 文件。需要创建专题或者分类，可以创建子文件夹，mkdocs 默认会把这些文件放到导航栏展示出来。</p>
-<figure data-type="image" tabindex="3"><img src="https://looker53.github.io/post-images/%E4%BD%BF%E7%94%A8mkdocs%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E5%92%8C%E7%BC%96%E5%86%99%E6%96%87%E6%A1%A3/image-20201204153048450.png" alt="image-20201204153048450" loading="lazy"></figure>
+<figure data-type="image" tabindex="3"><img src="https://yuz.one/post-images/%E4%BD%BF%E7%94%A8mkdocs%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E5%92%8C%E7%BC%96%E5%86%99%E6%96%87%E6%A1%A3/image-20201204153048450.png" alt="image-20201204153048450" loading="lazy"></figure>
 <h2 id="修改主题">修改主题</h2>
 <p>mkdocs 可以修改主题，改变页面的展示效果。 修改为内置主题只需要在 mkdocs.yml 文件中添加 theme 配置选项：</p>
 <pre><code class="language-yml">theme: 
   name: readthedocs
 </code></pre>
 <p>再次访问页面，网站的展示就变成了 readthedocs 样式了。readthedocs 主题是自带的，不需要额外安装。</p>
-<figure data-type="image" tabindex="4"><img src="https://looker53.github.io/post-images/%E4%BD%BF%E7%94%A8mkdocs%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E5%92%8C%E7%BC%96%E5%86%99%E6%96%87%E6%A1%A3/image-20201204154033138.png" alt="image-20201204154033138" loading="lazy"></figure>
+<figure data-type="image" tabindex="4"><img src="https://yuz.one/post-images/%E4%BD%BF%E7%94%A8mkdocs%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E5%92%8C%E7%BC%96%E5%86%99%E6%96%87%E6%A1%A3/image-20201204154033138.png" alt="image-20201204154033138" loading="lazy"></figure>
 <p>如果需要安装第三方的主题，先要安装才可以使用。我们来看一下 FastAPI 的文档主题 mkdocs material, 这个主题在 GitHub 上有 5.1k 的 star, 非常火爆。</p>
 <p>首先通过 pip 安装：</p>
 <pre><code class="language-bash">pip install mkdocs-material
@@ -156,7 +156,7 @@
   features: 
     - navigation.tabs
 </code></pre>
-<figure data-type="image" tabindex="5"><img src="https://looker53.github.io/post-images/%E4%BD%BF%E7%94%A8mkdocs%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E5%92%8C%E7%BC%96%E5%86%99%E6%96%87%E6%A1%A3/image-20201204162017448.png" alt="image-20201204162017448" loading="lazy"></figure>
+<figure data-type="image" tabindex="5"><img src="https://yuz.one/post-images/%E4%BD%BF%E7%94%A8mkdocs%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E5%92%8C%E7%BC%96%E5%86%99%E6%96%87%E6%A1%A3/image-20201204162017448.png" alt="image-20201204162017448" loading="lazy"></figure>
 <p>有时候你并不行把所有的目录都作为导航 tab 展示出来，你需要自己定义导航，同样可以在 mkdocs.yml 文件当中配置。 可以嵌套多级路径，但是只有顶层会显示在 tab 中，剩下的会在侧边栏展示。</p>
 <pre><code class="language-yaml">nav:
   - 首页: index.md
@@ -164,7 +164,7 @@
     - python: python/index.md
     - golang: golang/index.md
 </code></pre>
-<figure data-type="image" tabindex="6"><img src="https://looker53.github.io/post-images/%E4%BD%BF%E7%94%A8mkdocs%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E5%92%8C%E7%BC%96%E5%86%99%E6%96%87%E6%A1%A3/image-20201204173602745.png" alt="image-20201204173602745" loading="lazy"></figure>
+<figure data-type="image" tabindex="6"><img src="https://yuz.one/post-images/%E4%BD%BF%E7%94%A8mkdocs%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E5%92%8C%E7%BC%96%E5%86%99%E6%96%87%E6%A1%A3/image-20201204173602745.png" alt="image-20201204173602745" loading="lazy"></figure>
 <h3 id="网站风格设置">网站风格设置</h3>
 <p><a href="https://squidfunk.github.io/mkdocs-material-insiders/reference/abbreviations/">官方网站</a>有非常多风格设置的说明，可以设置外观颜色，markdown 进阶语法和 emoji 表情等等。下面是一个参考的 mkdocs.yaml 设置：</p>
 <pre><code class="language-yml">site_name: My Docs
@@ -222,9 +222,9 @@ markdown_extensions:
 </code></pre>
 <p>这里的 github 是远程仓库的名称，你也可以取其他的名字。</p>
 <p>第四步：在 github 的项目设置里设置默认分支为 gh-pages 分支:</p>
-<figure data-type="image" tabindex="7"><img src="https://looker53.github.io/post-images/%E4%BD%BF%E7%94%A8mkdocs%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E5%92%8C%E7%BC%96%E5%86%99%E6%96%87%E6%A1%A3/image-20201204193338868.png" alt="image-20201204193338868" loading="lazy"></figure>
+<figure data-type="image" tabindex="7"><img src="https://yuz.one/post-images/%E4%BD%BF%E7%94%A8mkdocs%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E5%92%8C%E7%BC%96%E5%86%99%E6%96%87%E6%A1%A3/image-20201204193338868.png" alt="image-20201204193338868" loading="lazy"></figure>
 <p>访问 looker53.github.io 就可以看到项目了。</p>
-<figure data-type="image" tabindex="8"><img src="https://looker53.github.io/post-images/%E4%BD%BF%E7%94%A8mkdocs%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E5%92%8C%E7%BC%96%E5%86%99%E6%96%87%E6%A1%A3/image-20201204193430258.png" alt="image-20201204193430258" loading="lazy"></figure>
+<figure data-type="image" tabindex="8"><img src="https://yuz.one/post-images/%E4%BD%BF%E7%94%A8mkdocs%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E5%92%8C%E7%BC%96%E5%86%99%E6%96%87%E6%A1%A3/image-20201204193430258.png" alt="image-20201204193430258" loading="lazy"></figure>
 
                 </div>
             </article>
@@ -233,7 +233,7 @@ markdown_extensions:
         
             <div class="next-post">
                 <div class="next gt-c-content-color-first">下一篇</div>
-                <a href="https://looker53.github.io/post/toml-pei-zhi-wen-jian-jian-ming-jiao-cheng/" class="post-title gt-a-link">
+                <a href="https://yuz.one/post/toml-pei-zhi-wen-jian-jian-ming-jiao-cheng/" class="post-title gt-a-link">
                     TOML 配置文件简明教程
                 </a>
             </div>
@@ -294,7 +294,7 @@ markdown_extensions:
     </div>
     <div>
         Theme by <a href="https://imhanjie.com/" target="_blank">imhanjie</a>, Powered by <a
-                href="https://github.com/getgridea/gridea" target="_blank">Gridea | <a href="https://looker53.github.io/atom.xml" target="_blank">RSS</a></a>
+                href="https://github.com/getgridea/gridea" target="_blank">Gridea | <a href="https://yuz.one/atom.xml" target="_blank">RSS</a></a>
     </div>
 </div>
 
