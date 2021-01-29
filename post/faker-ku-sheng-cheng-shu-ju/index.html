@@ -6,7 +6,7 @@
 
 <title>faker库生成数据 | WYZ-Python</title>
 
-<link rel="shortcut icon" href="https://yuz.one/favicon.ico?v=1611842386421">
+<link rel="shortcut icon" href="https://yuz.one/favicon.ico?v=1611920216030">
 
 <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://yuz.one/styles/main.css">
@@ -77,7 +77,7 @@
             
         </div>
         <div style="text-align: center">
-            <form id="gridea-search-form" style="position: relative" data-update="1611842386421" action="/search/index.html">
+            <form id="gridea-search-form" style="position: relative" data-update="1611920216030" action="/search/index.html">
                 <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
                 <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
             </form>
@@ -144,6 +144,16 @@ fk = Faker(locale='zh_CN')
 fk.add_provider(PY36)
 
 print(fk.py36_name())
+</code></pre>
+<h3 id="pytest-夹具">pytest 夹具</h3>
+<p>安装好 pytest 和 faker 以后，可以直接使用以下测试夹具生成数据。</p>
+<pre><code class="language-python">@pytest.fixture(scope='session', autouse=True)
+def faker_session_locale():
+    return ['zh_CN']
+
+@pytest.fixture()
+def mobile(faker):
+    return faker.phone_number()
 </code></pre>
 <h4 id="unique">unique</h4>
 <h4 id="seed">seed</h4>
