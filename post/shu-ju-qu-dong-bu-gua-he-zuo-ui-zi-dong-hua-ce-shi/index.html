@@ -1,0 +1,293 @@
+<html>
+<head>
+    <meta charset="utf-8"/>
+<meta name="description" content=""/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>数据驱动不适合做 UI 自动化测试 | WYZ-Python</title>
+
+<link rel="shortcut icon" href="https://yuz.one/favicon.ico?v=1614152167045">
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://yuz.one/styles/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dockerfile.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dart.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script>
+<!-- DEMO JS -->
+<!--<script src="media/scripts/index.js"></script>-->
+
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <nav class="navbar navbar-expand-lg">
+    <div class="navbar-brand">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            WYZ-Python
+        </div>
+    </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+                <div class="nav-item">
+                    
+                        <a href="/" class="menu gt-a-link">
+                            首页
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/archives" class="menu gt-a-link">
+                            归档
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/tags" class="menu gt-a-link">
+                            标签
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/post/about" class="menu gt-a-link">
+                            关于
+                        </a>
+                    
+                </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1614152167045" action="/search/index.html">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    数据驱动不适合做 UI 自动化测试
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2021-02-24 ·
+                    </time>
+                    
+                        <a href="https://yuz.one/tag/jr4f84iIgJ/" class="post-tags">
+                            # 测试
+                        </a>
+                    
+                </div>
+                <div class="post-content">
+                    <p>在做自动化测试的时候，我们经常会听到 DDT 数据驱动测试（Data-Driven Testing)。</p>
+<p>数据驱动测试又叫做表格驱动测试或者参数化驱动测试。它指的是进行自动化测试时，把所有测试数据单独放在一个表格或者是独立的模块儿当中，当运行测试脚本的时候，在一个通用的测试逻辑中分别填入每一组测试数据。</p>
+<figure data-type="image" tabindex="1"><img src="https://uploader.shimo.im/f/TbhmlXB8NFElCcR0.png!thumbnail?fileGuid=VPvYgHpgrkk8cJ3J" alt="图片" loading="lazy"></figure>
+<p>数据驱动可以解决两个问题。一、避免硬编码和重复代码，二、独立维护测试数据的表格，不需要频繁修改和维护代码。</p>
+<p>在流程驱动中，一般来说是一个测试用例会对应编写一个测试脚本或者函数。如果每个用例需要执行的步骤相同，就会出现大量的重复代码。而且当测试用例需要修改的时候，需要维护大量的代码函数。</p>
+<figure data-type="image" tabindex="2"><img src="https://uploader.shimo.im/f/UWf5evZoxdydYsWl.png!thumbnail?fileGuid=VPvYgHpgrkk8cJ3J" alt="图片" loading="lazy"></figure>
+<p>数据驱动可以有效解决这两个问题。它只需要编写一个通用的测试函数，然后通过参数化的手段将每一行测试数据分别带入函数作为参数，不仅节省了大量的重复代码，而且当测试用例需要修改的时候，也只需要修改对应的表格文件，而不需要去修改代码。</p>
+<figure data-type="image" tabindex="3"><img src="https://uploader.shimo.im/f/oFw6RM2suYza2q8K.png!thumbnail?fileGuid=VPvYgHpgrkk8cJ3J" alt="图片" loading="lazy"></figure>
+<p>数据驱动当然是一种好的自动化测试方式，但是有些人还是对它有不少误解。第一种误解，以为把测试数据存在 excel 当中，就是数据驱动。实际上，除了excel表格，csv文件、yaml 文件、json 文件和数据库都可以作为数据驱动的表类型，也可以直接用编程语言当中的数据类型存储。</p>
+<p>第二种误解，有些人觉得数据驱动是万能的，只要做自动化测试一定要用数据驱动。实际上数据驱动的使用场景也是比较有限的，他只适合在所有测试数据共享同一套代码逻辑的测试场景下。</p>
+<p><strong>其中最典型的就是接口自动化测试。</strong> 接口自动化测试下，测试逻辑几乎都是一致的：获取请求的url地址、请求方法、请求参数，传入客户端中，获取服务器的响应数据。</p>
+<pre><code class="language-plain">@pytest.mark.parametrize('url, method, data', table_data)
+def test_login_(url, method, data):
+    resp = requests.request(method, url, json=data)
+</code></pre>
+<p>但是 ui 自动化测试，每个用例需要执行的动作和测试步骤都会有很大的区别。要实现数据驱动，只能通过把数据分组，每一组共享一个测试函数的方式。但是这种形式要同时维护多张数据表和多个函数，还不如采用硬编码，一个用例对应一个测试函数维护起来方便。</p>
+<pre><code class="language-plain">import pytest
+# 维护多个 excel 表格
+excel_1 = read_excel('1')
+excel_2 = read_excel('2')
+excel_3 = read_excel('3')
+# 维护多个函数
+@pytest.mark.parametrize('case', excel_1)
+def test_login_group_1():
+    pass
+    
+@pytest.mark.parametrize('case', excel_2)
+def test_login_group_2():
+    pass
+    
+@pytest.mark.parametrize('case', excel_3)
+def test_login_group_3():
+    pass
+</code></pre>
+<p>那么 ui 自动化测试适合使用什么方式呢？</p>
+<p><strong>第一种方式就是采用硬编码这种最直接的方式。</strong> 每个用例单独编写一个测试函数，测试数据可以通过变量保存在测试函数最开始的位置，可以避免到处找测试数据的尴尬。这种方式只是把之前维护数据表格的工作转移到维护测试函数上来，虽然会多写一些重复代码，但是维护起来也不是特别困难。</p>
+<pre><code class="language-plain">def test_login_1():
+    username = ''
+    password = ''
+    login(username, password)
+    
+def test_login_2():
+    username = 'error name'
+    password = '123456'
+    login(username, password)
+    
+def test_login_3():
+    username = 'real name'
+    password = 'correct password'
+    login(username, password)
+</code></pre>
+<p>也可以结合数据驱动，采用数据分组编写测试函数的方式，但是不要独立去维护excel表格了，而是直接在测试代码里使用编程语言的数据类型存储分组数据，减少代码维护的成本。</p>
+<pre><code class="language-plain">import pytest
+group_1 = [ (&quot;&quot;, &quot;&quot;)]
+group_2 = [ (&quot;error name&quot;, &quot;&quot;)]
+group_3 = [ (&quot;correct name&quot;, &quot;&quot;)]
+@pytest.mark.parametrize('name, password', group_1)
+def test_login_group_1(name, password):
+    login(name, password)
+    
+@pytest.mark.parametrize('name, password', group_2)
+def test_login_group_1(name, password):
+    login(name, password)
+    
+@pytest.mark.parametrize('name, password', group_3)
+def test_login_group_1(name, password):
+    login(name, password)
+</code></pre>
+<p><strong>第二种方式可以使用关键字驱动。</strong> 关键字驱动和数据驱动的区别在于：不仅隔离了数据，而且把需要执行的动作也以字符串的形式，存放到表格当中。和数据驱动相同的是，它还是只有一个通用的测试执行函数。当运行测试脚本时， 每条数据和动作会一起作为参数传入执行函数中。</p>
+<p>我们来举一个实际的例子，首先创建一个yaml 文件存储一条用例的所有测试步骤、需要调用的操作和数据。</p>
+<pre><code class="language-yaml">-
+  action: &quot;goto&quot;
+  params:
+    url: &quot;https://prepc.ketangpai.com/#/login&quot;
+-
+  action: &quot;type&quot;
+  params:
+    locator: ['xpath', '//input[@type=&quot;text&quot;]']
+    data: 'looker53@sina.com'
+-
+  action: &quot;type&quot;
+  params:
+    locator: ['xpath', '//input[@type=&quot;password&quot;]']
+    data: 'admin123456'
+-
+  action: &quot;click&quot;
+  params:
+    locator: ['xpath', &quot;//div[@class='margin-top']//button[@type='button']&quot;]
+</code></pre>
+<p>然后编写一个通用的函数调用 yaml 中的动作和数据：</p>
+<pre><code class="language-plain">import yaml
+fpath = r'C:\Users\muji\Desktop\ketangpai_web_testing\data\login_ok.yaml'
+with open(fpath, encoding='utf8') as f:
+    data = yaml.safe_load(f)
+def test_keyword(driver):
+    for step in data:
+        method = getattr(driver, step['action'])
+        method(**step['params'])
+</code></pre>
+<p>动作需要提前写在某个固定的模块或者类当中，然后通过 getattr 这种动态获取动作的操作从类中提取动作，再传入测试数据。比如上面的例子中，goto、type、click 动作都被保存在一个 Driver 的类中。</p>
+<figure data-type="image" tabindex="4"><img src="https://uploader.shimo.im/f/uUmfl3eid78KNixJ.png!thumbnail?fileGuid=VPvYgHpgrkk8cJ3J" alt="图片" loading="lazy"></figure>
+<p>数据驱动是一种很好的模式，在进行接口自动化测试这样统一步骤的场景下非常有用。再 ui 自动化测试时，用硬编码或者关键字驱动会更加合适。</p>
+<p>参考资料：</p>
+<ul>
+<li><a href="https://www.guru99.com/data-driven-testing.html">https://www.guru99.com/data-driven-testing.html</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Data-driven_testing">https://en.wikipedia.org/wiki/Data-driven_testing</a></li>
+<li><a href="https://www.cnblogs.com/fnng/p/9557710.html">https://www.cnblogs.com/fnng/p/9557710.html</a></li>
+</ul>
+
+                </div>
+            </article>
+        </div>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://yuz.one/post/jsonpath-ng-jiao-cheng/" class="post-title gt-a-link">
+                    jsonpath 教程
+                </a>
+            </div>
+        
+
+        
+
+        
+
+        
+            <script src='https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js'></script>
+
+<style>
+	div#vcomments{
+		width:100%;
+		max-width: 1000px;
+		padding: 2.5%
+	}
+</style>
+
+
+	<div id="vcomments"></div>
+
+<script>
+	new Valine({
+		el: '#vcomments',
+		appId: '',
+		appKey: '',
+		avatar: '',
+		pageSize: 5,
+		recordIp: false,
+		placeholder: 'Just Go Go',
+		visitor: false,
+	});
+</script>
+
+        
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first"></div>
+    <div class="social-container">
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        
+    </div>
+    <div>
+        Theme by <a href="https://imhanjie.com/" target="_blank">imhanjie</a>, Powered by <a
+                href="https://github.com/getgridea/gridea" target="_blank">Gridea | <a href="https://yuz.one/atom.xml" target="_blank">RSS</a></a>
+    </div>
+</div>
+
+<script>
+  hljs.initHighlightingOnLoad()
+</script>
+
+    </div>
+</div>
+</body>
+</html>

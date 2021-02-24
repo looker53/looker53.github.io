@@ -2,13 +2,27 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://yuz.one</id>
     <title>WYZ-Python</title>
-    <updated>2021-01-29T11:43:51.814Z</updated>
+    <updated>2021-02-24T07:36:12.384Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://yuz.one"/>
     <link rel="self" href="https://yuz.one/atom.xml"/>
     <logo>https://yuz.one/images/avatar.png</logo>
     <icon>https://yuz.one/favicon.ico</icon>
     <rights>All rights reserved 2021, WYZ-Python</rights>
+    <entry>
+        <title type="html"><![CDATA[读取excel测试数据真的慢吗？]]></title>
+        <id>https://yuz.one/post/du-qu-excel-ce-shi-shu-ju-zhen-de-man-ma/</id>
+        <link href="https://yuz.one/post/du-qu-excel-ce-shi-shu-ju-zhen-de-man-ma/">
+        </link>
+        <updated>2021-02-24T07:35:29.000Z</updated>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[数据驱动不适合做 UI 自动化测试]]></title>
+        <id>https://yuz.one/post/shu-ju-qu-dong-bu-gua-he-zuo-ui-zi-dong-hua-ce-shi/</id>
+        <link href="https://yuz.one/post/shu-ju-qu-dong-bu-gua-he-zuo-ui-zi-dong-hua-ce-shi/">
+        </link>
+        <updated>2021-02-24T06:57:45.000Z</updated>
+    </entry>
     <entry>
         <title type="html"><![CDATA[jsonpath 教程]]></title>
         <id>https://yuz.one/post/jsonpath-ng-jiao-cheng/</id>
@@ -64,19 +78,5 @@
         <link href="https://yuz.one/post/shi-yong-python-he-selenium-zuo-liu-lan-qi-jian-rong-ce-shi/">
         </link>
         <updated>2021-01-07T13:41:10.000Z</updated>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[配置文件，首选 YAML 和 TOML]]></title>
-        <id>https://yuz.one/post/pei-zhi-wen-jian-shou-xuan-yaml-he-toml/</id>
-        <link href="https://yuz.one/post/pei-zhi-wen-jian-shou-xuan-yaml-he-toml/">
-        </link>
-        <updated>2021-01-07T13:36:59.000Z</updated>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[python单元测试框架 pytest 入门]]></title>
-        <id>https://yuz.one/post/pytest-gettting-started/</id>
-        <link href="https://yuz.one/post/pytest-gettting-started/">
-        </link>
-        <updated>2021-01-07T12:14:54.000Z</updated>
     </entry>
 </feed>
