@@ -4,7 +4,7 @@
 <meta name="description" content=""/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-<title>faker库生成数据 | WYZ-Python</title>
+<title>selenium 启动时会遇到哪些坑 | WYZ-Python</title>
 
 <link rel="shortcut icon" href="https://yuz.one/favicon.ico?v=1614763649353">
 
@@ -89,11 +89,11 @@
         <div class="post-detail gt-bg-theme-color-second">
             <article class="gt-post-content">
                 <h2 class="post-title">
-                    faker库生成数据
+                    selenium 启动时会遇到哪些坑
                 </h2>
                 <div class="post-info">
                     <time class="post-time gt-c-content-color-first">
-                        · 2021-01-22 ·
+                        · 2021-02-27 ·
                     </time>
                     
                         <a href="https://yuz.one/tag/jr4f84iIgJ/" class="post-tags">
@@ -102,67 +102,104 @@
                     
                 </div>
                 <div class="post-content">
-                    <p>faker库用于生成伪造的数据。</p>
-<h4 id="设置中文">设置中文</h4>
-<pre><code class="language-python">from faker import Faker
-fk = Faker(locale='zh_CN')
+                    <h4 id="1-chrome-正受到自动测试软件的控制">1、chrome 正受到自动测试软件的控制</h4>
+<p>提示：</p>
+<figure data-type="image" tabindex="1"><img src="https://uploader.shimo.im/f/KOn8ETaRxW7yN02y.png!thumbnail?fileGuid=dX6JRHtG3Gjk63Dy" alt="图片" loading="lazy"></figure>
+<p>解决办法：</p>
+<p>网上有教程是禁用浏览器的 infobars 选项来取消这个提示，经过测试这个方法已经失效了。</p>
+<pre><code class="language-plain">option.add_argument('disable-infobars')
 </code></pre>
-<h4 id="设置多语言">设置多语言</h4>
-<pre><code class="language-python">from faker import Faker
-fk = Faker(locale=['zh_CN', 'en_US'])
+<p>但是有另一种方式是可以成功隐藏提示框的。</p>
+<pre><code class="language-python">from selenium import webdriver
+option = webdriver.ChromeOptions()
+option.add_experimental_option('useAutomationExtension', False)
+option.add_experimental_option('excludeSwitches', ['enable-automation'])
+driver = webdriver.Chrome(options=option)
 </code></pre>
-<h4 id="手机号码">手机号码</h4>
-<pre><code class="language-python">In [4]: fk.phone_number()
-Out[4]: '13184685252'
+<h4 id="2-浏览器提示-windows-defender-防护">2、浏览器提示 windows defender 防护</h4>
+<p>提示：</p>
+<figure data-type="image" tabindex="2"><img src="https://uploader.shimo.im/f/6ScLkDPVIm4mzStK.png!thumbnail?fileGuid=dX6JRHtG3Gjk63Dy" alt="图片" loading="lazy"></figure>
+<p>解决办法：</p>
+<p>重新配置用户数据目录可以解决：</p>
+<pre><code class="language-python">option.add_argument('user-data-dir=/usr/you/data/dir')
+driver = webdriver.Chrome(options=option)
 </code></pre>
-<h4 id="地址">地址</h4>
-<pre><code class="language-python">In [5]: fk.company()
-Out[5]: '商软冠联信息有限公司'
+<h4 id="3-浏览器驱动版本不匹配">3、浏览器驱动版本不匹配</h4>
+<p>提示：</p>
+<pre><code class="language-plain">&quot;selenium.common.exceptions.SessionNotCreatedException: Message: session not created: This version of ChromeDriver only supports Chrome version 81&quot;
 </code></pre>
-<h4 id="公司">公司</h4>
-<pre><code class="language-python">In [6]: fk.address()
-Out[6]: '广西壮族自治区通辽市沙市张路b座 217717'
+<p>解决办法：</p>
+<p>下载和浏览器兼容的驱动版本。chrome 浏览器比较稳定的驱动版本有 71 和 38，优先使用这两个版本的驱动，然后再使用和浏览器版本一致的驱动版本。另外，firefox 火狐浏览器的驱动更加稳定，可以多用火狐浏览器运行 ui 自动化。</p>
+<h4 id="4-找不到浏览器安装路径"><strong>4、找不到浏览器安装路径</strong></h4>
+<p>提示：</p>
+<pre><code class="language-plain">WebDriverException: unknown error: cannot find Chrome binary
+(Driver info: chromedriver=2.26.436362
+(5476ec6bf7ccbada1734a0cdec7d570bb042aa30),platform=Windows NT 10.0.14393 x86_64)
 </code></pre>
-<h4 id="时间">时间</h4>
-<pre><code class="language-python">In [7]: fk.date_time()
-Out[7]: datetime.datetime(1983, 12, 8, 21, 53, 41)
+<p>解决办法：</p>
+<pre><code class="language-python">options = ChromeOptions()
+options.binary_location = &quot;C:\\Program Files\\Chrome\\chrome64_55.0.2883.75\\chrome.exe&quot;
+driver = webdriver.Chrome(options=options)
 </code></pre>
-<h4 id="自定义-provider">自定义 Provider</h4>
-<p>如果发现内置的数据不是你想要的，可以自己定义实现。</p>
-<pre><code class="language-python">from faker import Faker
-from faker.providers import BaseProvider
-
-class PY36(BaseProvider):
-
-    names = ('雨泽', '鲸鱼', '猴子', '阿鸡')
-
-    def py36_name(self):
-        return self.random_element(self.names)
-
-# 添加provider
-fk = Faker(locale='zh_CN')
-fk.add_provider(PY36)
-
-print(fk.py36_name())
+<h4 id="5-浏览器驱动没有放在环境变量">5、浏览器驱动没有放在环境变量</h4>
+<p>提示：</p>
+<figure data-type="image" tabindex="3"><img src="https://uploader.shimo.im/f/uEcoE2EnXStTxD8B.png!thumbnail?fileGuid=dX6JRHtG3Gjk63Dy" alt="图片" loading="lazy"></figure>
+<p>解决方法1：</p>
+<p>把驱动放在任意位置，添加 executable_path 参数。 使用 windows 系统时，只能放在 c 盘，其他盘会继续报错。</p>
+<pre><code class="language-python">driver_path = r'C:\data\chromedriver_71.exe'
+driver = webdriver.Chrome(executable_path=driver_path)
 </code></pre>
-<h3 id="pytest-夹具">pytest 夹具</h3>
-<p>安装好 pytest 和 faker 以后，可以直接使用以下测试夹具生成数据。</p>
-<pre><code class="language-python">@pytest.fixture(scope='session', autouse=True)
-def faker_session_locale():
-    return ['zh_CN']
-
-@pytest.fixture()
-def mobile(faker):
-    return faker.phone_number()
+<p>解决方法2：</p>
+<p>使用 python 自动配置 path 变量</p>
+<pre><code class="language-python">driver_path = r'C:\data'
+os.environ['path'] += f&quot;;{driver_path}&quot;
+driver = webdriver.Chrome()
 </code></pre>
-<h4 id="unique">unique</h4>
-<h4 id="seed">seed</h4>
-<h4 id="factory">Factory</h4>
-<h4 id="参考文献">参考文献</h4>
-<ul>
-<li><a href="https://faker.readthedocs.io/en/master/index.html">官网</a></li>
-<li><a href="https://zhuanlan.zhihu.com/p/37173611">python最假的库</a></li>
-</ul>
+<h4 id="6-session-创建失败">6、session 创建失败</h4>
+<p>提示：</p>
+<pre><code class="language-plain">Session created failed
+</code></pre>
+<p>解决办法：</p>
+<pre><code class="language-python">options = ChromeOptions()
+options.add_argument(&quot;enable-automation&quot;)
+options.add_argument(&quot;--headless&quot;)
+options.add_argument(&quot;--window-size=1920,1080&quot;)
+options.add_argument(&quot;--no-sandbox&quot;)
+options.add_argument(&quot;--disable-extensions&quot;)
+options.add_argument(&quot;--dns-prefetch-disable&quot;)
+options.add_argument(&quot;--disable-gpu&quot;)
+driver = webdriver.Chrome(options=options)
+</code></pre>
+<h4 id="7-汇总后的浏览器设置">7、汇总后的浏览器设置</h4>
+<pre><code class="language-python">import os
+from selenium import webdriver
+def start_selenium(driver_path, user_dir, browser_path):
+    options = webdriver.ChromeOptions()
+    
+    # hide info bar
+    options.add_experimental_option('useAutomationExtension', False)
+    options.add_experimental_option('excludeSwitches', ['enable-automation'])
+    
+    # change browser user data dir
+    options.add_argument(f'user-data-dir={user_dir}')
+    
+    # browser binary location
+    options.binary_location = browser_path
+    
+    # insert web driver path into os path variable
+    os.environ['path'] += f&quot;;{driver_path}&quot;
+    
+    # others
+    options.add_argument(&quot;enable-automation&quot;)
+    options.add_argument(&quot;--headless&quot;)
+    options.add_argument(&quot;--window-size=1920,1080&quot;)
+    options.add_argument(&quot;--no-sandbox&quot;)
+    options.add_argument(&quot;--disable-extensions&quot;)
+    options.add_argument(&quot;--dns-prefetch-disable&quot;)
+    options.add_argument(&quot;--disable-gpu&quot;)
+    
+    driver = webdriver.Chrome(options=options)
+</code></pre>
 
                 </div>
             </article>
@@ -171,8 +208,8 @@ def mobile(faker):
         
             <div class="next-post">
                 <div class="next gt-c-content-color-first">下一篇</div>
-                <a href="https://yuz.one/post/wo-zuo-liao-hui-shi-pin-gao-su-ni-xu-yao-yong-dao-na-xie-gong-ju/" class="post-title gt-a-link">
-                    制作一个视频需要用到哪些工具
+                <a href="https://yuz.one/post/du-qu-excel-ce-shi-shu-ju-zhen-de-man-ma/" class="post-title gt-a-link">
+                    读取excel测试数据真的慢吗？
                 </a>
             </div>
         

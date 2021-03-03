@@ -2,13 +2,27 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://yuz.one</id>
     <title>WYZ-Python</title>
-    <updated>2021-02-24T07:36:12.384Z</updated>
+    <updated>2021-03-03T09:28:21.864Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://yuz.one"/>
     <link rel="self" href="https://yuz.one/atom.xml"/>
     <logo>https://yuz.one/images/avatar.png</logo>
     <icon>https://yuz.one/favicon.ico</icon>
     <rights>All rights reserved 2021, WYZ-Python</rights>
+    <entry>
+        <title type="html"><![CDATA[使用 CSS 选择器，定位网页元素]]></title>
+        <id>https://yuz.one/post/shi-yong-css-xuan-ze-qi-ding-wei-wang-ye-yuan-su/</id>
+        <link href="https://yuz.one/post/shi-yong-css-xuan-ze-qi-ding-wei-wang-ye-yuan-su/">
+        </link>
+        <updated>2021-03-03T09:26:56.000Z</updated>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[selenium 启动时会遇到哪些坑]]></title>
+        <id>https://yuz.one/post/selenium-qi-dong-shi-hui-yu-dao-na-xie-keng/</id>
+        <link href="https://yuz.one/post/selenium-qi-dong-shi-hui-yu-dao-na-xie-keng/">
+        </link>
+        <updated>2021-02-27T08:03:59.000Z</updated>
+    </entry>
     <entry>
         <title type="html"><![CDATA[读取excel测试数据真的慢吗？]]></title>
         <id>https://yuz.one/post/du-qu-excel-ce-shi-shu-ju-zhen-de-man-ma/</id>
@@ -64,19 +78,5 @@
         <link href="https://yuz.one/post/shi-yong-mkdocs-da-jian-bo-ke-he-bian-xie-wen-dang/">
         </link>
         <updated>2021-01-07T13:49:15.000Z</updated>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[TOML 配置文件简明教程]]></title>
-        <id>https://yuz.one/post/toml-pei-zhi-wen-jian-jian-ming-jiao-cheng/</id>
-        <link href="https://yuz.one/post/toml-pei-zhi-wen-jian-jian-ming-jiao-cheng/">
-        </link>
-        <updated>2021-01-07T13:44:59.000Z</updated>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[使用 python 和 selenium 做浏览器兼容测试]]></title>
-        <id>https://yuz.one/post/shi-yong-python-he-selenium-zuo-liu-lan-qi-jian-rong-ce-shi/</id>
-        <link href="https://yuz.one/post/shi-yong-python-he-selenium-zuo-liu-lan-qi-jian-rong-ce-shi/">
-        </link>
-        <updated>2021-01-07T13:41:10.000Z</updated>
     </entry>
 </feed>
