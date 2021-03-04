@@ -1,11 +1,10 @@
 <html>
-
 <head>
     <meta charset="utf-8"/>
 <meta name="description" content=""/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-<title>友情链接 - 明天再学</title>
+<title>faker库生成数据 | 明天再学</title>
 
 <link rel="shortcut icon" href="https://yuz.one/favicon.ico?v=1614835659230">
 
@@ -26,12 +25,11 @@
 
 
 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
 </head>
-
 <body>
 <div class="main gt-bg-theme-color-first">
-        <div class="main-content">
-            <nav class="navbar navbar-expand-lg">
+    <nav class="navbar navbar-expand-lg">
     <div class="navbar-brand">
         <img class="user-avatar" src="/images/avatar.png" alt="头像">
         <div class="site-name gt-c-content-color-first">
@@ -87,41 +85,132 @@
     </div>
 </nav>
 
-            <div class="post-container">
-                <div class="post-detail">
-                    <article>
-                        <!-- <div class="post-content-wrapper"> -->
-                            <div class="post-content">
-                                <div class="friends-desc">
-                                    
-                                </div>
-                                <h3 id="linklist">友链列表</h3>
-                                
-                                    
-                                        <div class="friend-box">
-                                            <img class="friend-avatar" src="">
-                                            <div class="flink-info">
-                                                
-                                                        <a class="gt-c-content-color-first" href="" target="_blank">明天再学公众号</a>
-                                                        
-                                                <br />
-                                                <div class="flink-info-desc gt-c-content-color-first">
-                                                    
-                                                </div>
-                                            </div>
-                                        </div>
-                                    
-                                
-                            </div>
-                        <!-- </div> -->
-                    </article>
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    faker库生成数据
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2021-01-22 ·
+                    </time>
+                    
+                        <a href="https://yuz.one/jr4f84iIgJ/" class="post-tags">
+                            # 测试
+                        </a>
+                    
                 </div>
-                
+                <div class="post-content">
+                    <p>faker库用于生成伪造的数据。</p>
+<h4 id="设置中文">设置中文</h4>
+<pre><code class="language-python">from faker import Faker
+fk = Faker(locale='zh_CN')
+</code></pre>
+<h4 id="设置多语言">设置多语言</h4>
+<pre><code class="language-python">from faker import Faker
+fk = Faker(locale=['zh_CN', 'en_US'])
+</code></pre>
+<h4 id="手机号码">手机号码</h4>
+<pre><code class="language-python">In [4]: fk.phone_number()
+Out[4]: '13184685252'
+</code></pre>
+<h4 id="地址">地址</h4>
+<pre><code class="language-python">In [5]: fk.company()
+Out[5]: '商软冠联信息有限公司'
+</code></pre>
+<h4 id="公司">公司</h4>
+<pre><code class="language-python">In [6]: fk.address()
+Out[6]: '广西壮族自治区通辽市沙市张路b座 217717'
+</code></pre>
+<h4 id="时间">时间</h4>
+<pre><code class="language-python">In [7]: fk.date_time()
+Out[7]: datetime.datetime(1983, 12, 8, 21, 53, 41)
+</code></pre>
+<h4 id="自定义-provider">自定义 Provider</h4>
+<p>如果发现内置的数据不是你想要的，可以自己定义实现。</p>
+<pre><code class="language-python">from faker import Faker
+from faker.providers import BaseProvider
+
+class PY36(BaseProvider):
+
+    names = ('雨泽', '鲸鱼', '猴子', '阿鸡')
+
+    def py36_name(self):
+        return self.random_element(self.names)
+
+# 添加provider
+fk = Faker(locale='zh_CN')
+fk.add_provider(PY36)
+
+print(fk.py36_name())
+</code></pre>
+<h3 id="pytest-夹具">pytest 夹具</h3>
+<p>安装好 pytest 和 faker 以后，可以直接使用以下测试夹具生成数据。</p>
+<pre><code class="language-python">@pytest.fixture(scope='session', autouse=True)
+def faker_session_locale():
+    return ['zh_CN']
+
+@pytest.fixture()
+def mobile(faker):
+    return faker.phone_number()
+</code></pre>
+<h4 id="unique">unique</h4>
+<h4 id="seed">seed</h4>
+<h4 id="factory">Factory</h4>
+<h4 id="参考文献">参考文献</h4>
+<ul>
+<li><a href="https://faker.readthedocs.io/en/master/index.html">官网</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/37173611">python最假的库</a></li>
+</ul>
+
+                </div>
+            </article>
+        </div>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://yuz.one/wo-zuo-liao-hui-shi-pin-gao-su-ni-xu-yao-yong-dao-na-xie-gong-ju/" class="post-title gt-a-link">
+                    制作一个视频需要用到哪些工具
+                </a>
             </div>
+        
+
+        
+
+        
+
+        
+            <script src='https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js'></script>
+
+<style>
+	div#vcomments{
+		width:100%;
+		max-width: 1000px;
+		padding: 2.5%
+	}
+</style>
 
 
+	<div id="vcomments"></div>
 
-            <div class="site-footer gt-c-content-color-first">
+<script>
+	new Valine({
+		el: '#vcomments',
+		appId: '',
+		appKey: '',
+		avatar: '',
+		pageSize: 5,
+		recordIp: false,
+		placeholder: 'Just Go Go',
+		visitor: false,
+	});
+</script>
+
+        
+
+        <div class="site-footer gt-c-content-color-first">
     <div class="slogan gt-c-content-color-first">『明天再学』公众号文章备份</div>
     <div class="social-container">
         
@@ -151,8 +240,7 @@
   hljs.initHighlightingOnLoad()
 </script>
 
-        </div>
     </div>
+</div>
 </body>
-
 </html>

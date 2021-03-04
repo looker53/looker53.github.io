@@ -1,0 +1,351 @@
+<html>
+<head>
+    <meta charset="utf-8"/>
+<meta name="description" content=""/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>python单元测试框架 pytest 入门 | 明天再学</title>
+
+<link rel="shortcut icon" href="https://yuz.one/favicon.ico?v=1614835659230">
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://yuz.one/styles/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dockerfile.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dart.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script>
+<!-- DEMO JS -->
+<!--<script src="media/scripts/index.js"></script>-->
+
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <nav class="navbar navbar-expand-lg">
+    <div class="navbar-brand">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            明天再学
+        </div>
+    </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+                <div class="nav-item">
+                    
+                        <a href="/" class="menu gt-a-link">
+                            首页
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/archives" class="menu gt-a-link">
+                            归档
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/tags" class="menu gt-a-link">
+                            标签
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/post/about" class="menu gt-a-link">
+                            关于
+                        </a>
+                    
+                </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1614835659230" action="/search/index.html">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    python单元测试框架 pytest 入门
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2021-01-07 ·
+                    </time>
+                    
+                        <a href="https://yuz.one/GkoFI8qH-/" class="post-tags">
+                            # python
+                        </a>
+                    
+                        <a href="https://yuz.one/VXV_W9-dbU/" class="post-tags">
+                            # pytest
+                        </a>
+                    
+                        <a href="https://yuz.one/jr4f84iIgJ/" class="post-tags">
+                            # 测试
+                        </a>
+                    
+                </div>
+                <div class="post-content">
+                    <h3 id="1-引言">1、引言</h3>
+<p>我有一个朋友是做Python自动化测试的。前几天他告诉我去参加一个大厂面试被刷了。</p>
+<p>我问他是有没有总结被刷下来的原因。他说面试官问了一些 pytest 单元测试框架相关的知识，包括什么插件系统和用力筛选。但是他所在的公司用的技术是基于 unittest 的,没有用过 pytest。</p>
+<p>我跟他说你可以和技术面试官说明，在实际过程当中你没有使用过 pytest，但是你可以后面再学。这哥们说：我就是这样跟面试官说的，但是面试官告诉我 pytest 现在已经是行业里面的主流，还在坚持用 unittest 说明我的技术已经过时了，没有跟上现在测试领域的发展。</p>
+<p>实际上他在面试之前已经了解过 pytest 的一些基础用法，但是网上的一些资料，都是停留在用法和一些知识点的讲解，没有深入到 pytest 内部运行和一些高级特性。所以被问到的时候，自己临时抱佛脚的一些知识都没有用上。</p>
+<p>后面我给这位朋友补习了一些关于Python的高级特性。现在我连同基础部分的内容一起贴出来，希望对Python自动化测试的一些朋友有所帮助。</p>
+<h3 id="2-为什么用单元测试框架">2、为什么用单元测试框架？</h3>
+<p>首先我要说明一下什么是单元测试框架?</p>
+<p>unittest 和 pytest 都是单元测试框架。单元测试指的是在编程过程当中形成的对函数或者是类下面的方法进行测试的一个过程。</p>
+<p>在不使用任何框架的前提下，其实也是可以进行单元测试的。比如我们可以通过 if 判断<br>
+、异常处理或者是其他的流程控制来表示测试是否通过。</p>
+<pre><code class="language-python">def add(a, b):
+    return a + b
+    
+def test_add():
+    ret = add(3, 4)
+    if ret == 7:
+        print(&quot;add 函数的测试通过&quot;)
+    else:
+        print(&quot;add 函数的测试失败&quot;)
+</code></pre>
+<p>如果要运行这个用例，需要手工调用 test_add 这个函数：</p>
+<pre><code class="language-python">test_add()
+</code></pre>
+<p>接下来，使用 python 运行这个文件，就能得到测试结果：</p>
+<pre><code>python test_add.py
+</code></pre>
+<p>虽然说上面我们通过 if 判断，对一个函数进行了测试，而且得到了测试结果，但是流程是比较复杂的：</p>
+<ul>
+<li>首先我们需要人工去判断结果，</li>
+<li>第2我们需要通过 Python去运行模块。</li>
+<li>第3，我们还需要显性的去调用 test_add 这个函数。</li>
+</ul>
+<p>这还只是在我们只测试了一个函数的情况下，当需要测试的函数或者类越来越多的时候，这个过程会越来越复杂。</p>
+<p>而使用单元测试框架，可以极大的简化我们对单元测试的过程，使用单元测试框架以后，框架会帮我们自动去收集用例、运行用例、生成报告。</p>
+<figure data-type="image" tabindex="1"><img src="https://yuz.one/post-images/framework.png" alt="" loading="lazy"></figure>
+<h3 id="3-pytest-的基础使用">3、pytest 的基础使用</h3>
+<p>上面的测试代码使用 pytest 编写，可以这样写。</p>
+<pre><code class="language-python">def add(a, b):
+    return a + b
+    
+def test_add():
+    assert 7 == add(3,4)
+</code></pre>
+<p>写完测试用例以后，我们只需要在目录下输入pytest 指令，就可以自动运行用例，而且呢结果会直接显示在命令行的下方。</p>
+<figure data-type="image" tabindex="2"><img src="https://yuz.one/post-images/image-20201219192616608.png" alt="image-20201219192616608" loading="lazy"></figure>
+<p>上面讲的是单元测试过程，也就是说对某个函数或者是类下面的方法进行测试，有的人可能会不理解。在实际工作过程当中很少进行单元测试啊，测试人员做的更多的是接口测试，UI测试，pytest 怎么用呢？</p>
+<p>实际上不管是接口测试还是UI测试，都是可以使用 pytest。当你进行接口测试的时候，你只需要把访问接口的过程封装成一个Python函数。</p>
+<pre><code>def visit_api():
+    print(&quot;访问接口,得到结果...&quot;)
+    return response
+    
+def test_api():
+    assert expected_response == visit_api()
+</code></pre>
+<p>当你进行 web测试的时候，你只需要操作浏览器的过程封装成一个函数？</p>
+<pre><code>def browser_method():
+    print(&quot;点点点&quot;)
+    return ui_response
+    
+def test_web():
+    assert expected_response == browser_method()
+</code></pre>
+<p>在这种情况下。接口访问和web操作都是以函数形式存在的，我们直接去测试这个 Python 函数，也是一个单元测试的过程。</p>
+<p>因为 pytest 是一个第三方的框架，所以我们先要安装。安装方式非常简单，只需要通过 pip 这个包管理工具安装就可以了。</p>
+<pre><code>pip install -U pytest
+</code></pre>
+<p>安装完成以后，我们可以向使用上面的那个例子一样：</p>
+<ul>
+<li>第1步：定义一个测试函数，这个测试函数通常会调用被测函数。</li>
+<li>第2步：使用assert断言，assert 后面可以跟任意的 Python 条件表达式。</li>
+</ul>
+<pre><code class="language-python">assert 4 &lt; 5
+assert &quot;yuze&quot; in &quot;yuze wang&quot;
+assert isinstance(6, int)
+</code></pre>
+<p>测试用例函数有 2 个注意事项：</p>
+<ul>
+<li>函数名称以<code>test_</code>开头；</li>
+<li>保存测试用例的文件以<code>test_*.py</code> 的形式或者 <code>*_test.py</code> 的形式。</li>
+</ul>
+<p>例行用了以后呢，在命令行当中会显示4个部分的内容:</p>
+<ul>
+<li>第1个部分，测试用例和通过的结果，</li>
+<li>第2个部分，失败用例回溯信息，</li>
+<li>第3个部分，输出捕获信息，</li>
+<li>第4个部分，总结信息。</li>
+</ul>
+<figure data-type="image" tabindex="3"><img src="https://yuz.one/post-images/image-20201224195304229.png" alt="image-20201224195304229" loading="lazy"></figure>
+<p>在拍test当中通过的测试用例，不会有特别详细的结果，但是这是失败的测试用例默认会有非常详细的结果，而且会帮你捕获错误原因。</p>
+<h3 id="4-测试夹具fixture是什么">4、测试夹具（Fixture）是什么？</h3>
+<p>在测试过程当中，有时你需要提前给你的测试用例去准备一个运行环境。这个测试环境通常来说被称为测试夹具（Fixture），又被称为固定装置、测试固件等。</p>
+<figure data-type="image" tabindex="4"><img src="https://yuz.one/post-images/fixture.jpg" alt="fixture" loading="lazy"></figure>
+<ul>
+<li>当你要测试一个电器的时候，你需要提供不同的输入电压电流的环境，</li>
+<li>当你测试一台电脑网络的时候，必须要提供网络环境，</li>
+<li>当你要测试一个手机游戏能否被安装时，你需要提供一台手机环境，</li>
+<li>当你要测试一个软件能否登录的时候，你需要准备用户名和密码这样的用户环境，</li>
+<li>当你要测试一个数据库能否操作的时候，需要提供数据库的连接环境。</li>
+</ul>
+<p>现在我们来举一个夹具的例子，我们需要测试一个注册的函数。这个注册函数提供两个参数，第1个参数是手机号，第2个参数是密码。注册函数的逻辑就是对手机号码和密码进行校验，如果通过校验表示注册成功，如果不通过表示注册失败。</p>
+<pre><code class="language-python">def is_mobile(number: str):
+    if re.search(r&quot;^1[3-9][0-9]{9}$&quot;, number):
+        return True
+    return False
+
+def register(mobile, password):
+    if is_mobile(mobile) and len(password) &gt;= 6:
+        return &quot;success&quot;
+    return &quot;fail&quot;
+
+def test_register():
+    assert &quot;success&quot; == register(&quot;13177778888&quot;, &quot;123456&quot;)
+</code></pre>
+<p>这个测试用例并没有什么问题，但是它存在优化的空间。一个优化的空间是每个手机号码都是我们手工生成的，当需要编写多组数据测试时，会有一点费时间。现在我们可以编写一个函数，自动生成一个手机号码，当我有多组数据需要测试的时候，我只需要重复调用生成手机号码的函数，就可以获取测试数据。这个生成手机号码的函数呢，就是一个夹具。</p>
+<pre><code class="language-python">def gen_a_mobile():
+    &quot;&quot;&quot;随机生成 13 开头的手机号码。&quot;&quot;&quot;
+    random_num = &quot;&quot;.join([str(random.randint(1,9)) for i in range(9)])
+    return &quot;&quot;.join([&quot;13&quot;, random_num])
+</code></pre>
+<p>pytest 提供了一种叫做依赖注入的机制，当一个函数被声明为夹具的时候，可以在测试函数中传入这个夹具的名称，pytest会自动调用它。</p>
+<pre><code class="language-python">import random
+import pytest
+
+@pytest.fixture
+def gen_a_mobile():
+    &quot;&quot;&quot;随机生成 13 开头的手机号码。&quot;&quot;&quot;
+    random_num = &quot;&quot;.join([str(random.randint(1,9)) for i in range(9)])
+    return &quot;&quot;.join([&quot;13&quot;, random_num])
+
+def test_register(gen_a_mobile):
+    assert &quot;success&quot; == register(gen_a_mobile, &quot;123456&quot;)
+</code></pre>
+<p>pytest 当中的夹具系统非常非常的灵活，后面如果有时间的我专门写文章跟大家讲解夹具系统。</p>
+<h3 id="5-数据驱动和参数化">5、数据驱动和参数化</h3>
+<p>现在我们编写的函数和测试用例是1对1的关系，也就是说，当你想测试某个功能场景的时候，你必须要去编写一个对应的测试函数。当测试的场景越来越多，测试数据越来越复杂的情况下，需要编写更多的测心率函数，而这些函数的逻辑基本上是重复的。</p>
+<figure data-type="image" tabindex="5"><img src="https://yuz.one/post-images/image-20201221154754539.png" alt="image-20201221154754539" loading="lazy"></figure>
+<p>在 pytest 当中可以使用参数化这种测试手段，简化编写用例函数的过程。我们并不需要为每一组测试数据单独去编写一个测试函数，而是采取多种数据共用一个函数的方式。如果测试操作几乎一致，可以重复使用这一个函数进行测试。</p>
+<pre><code class="language-python">import pytest
+
+cases = [
+    (1, 2, 3),
+    (&quot;hello&quot;, &quot;world&quot;, &quot;hello world&quot;),
+    (1, &quot;world&quot;, &quot;1world&quot;)
+]
+
+
+@pytest.mark.parametrize(&quot;a,b,expected&quot;, cases)
+def test_add(a, b, expected):
+    assert expected == add(a, b)
+</code></pre>
+<p>在这个例子当中，cases这个变量存储了三组测试用例的数据，每一组测试数据用一个元组表示，元组的第1个元素代表a，第2个元素代表B，第3个元素代表预期结果。</p>
+<figure data-type="image" tabindex="6"><img src="https://yuz.one/post-images/image-20201221160111259.png" alt="image-20201221160111259" loading="lazy"></figure>
+<p><code>@pytest.mark.parametrize(&quot;a,b,expected&quot;, cases)</code> 这一行代码的意思是说，每一次从cases变量当中取出一组测试数据。分别用a、b 、expected 三个变量接收，然后我们把这三个变量名作为函数的参数传递到 test_add 当中，就实现了参数化的过程。</p>
+<p>当使用这一种参数化的手段进行测试的时候，测试数据和测试函数是多对一的关系，对于多组测试数据，我们只需要去编写一个测试函数，极大的提升了代码编写效率。</p>
+<h3 id="6-测试报告和插件">6、测试报告和插件</h3>
+<p>最后我们来说一下测试报告。pytest 当中的测试报告，通常是以插件的形式生成的，如果你想生成一个html格式的测试报告，可以先安装 pytest-html 这个插件。</p>
+<pre><code>pip install pytest-html
+</code></pre>
+<p>接下来你需要在运行用例的时候，在 pytest 命令后面加上 <code>--html=&lt;测试报告名称&gt;.html</code></p>
+<pre><code>pytest --html=report.html
+</code></pre>
+<p>当运行完用例以后，你可以在当前目录下找到一个 report.html 的文件，打开就可以查看测试报告了。</p>
+<figure data-type="image" tabindex="7"><img src="https://yuz.one/post-images/image-20201221181320782.png" alt="image-20201221181320782" loading="lazy"></figure>
+<p>pytest 之所以成为主流，有很多的原因，其中最重要的一个原因是因为其强大的插件系统。任何一个程序员，只要遵循一些简单的规范，就可以轻易的编写插件。后面我们再跟大家深入去研究 pytest 当中的夹具系统，插件系统和钩子函数这些特性。</p>
+
+                </div>
+            </article>
+        </div>
+
+        
+
+        
+
+        
+
+        
+            <script src='https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js'></script>
+
+<style>
+	div#vcomments{
+		width:100%;
+		max-width: 1000px;
+		padding: 2.5%
+	}
+</style>
+
+
+	<div id="vcomments"></div>
+
+<script>
+	new Valine({
+		el: '#vcomments',
+		appId: '',
+		appKey: '',
+		avatar: '',
+		pageSize: 5,
+		recordIp: false,
+		placeholder: 'Just Go Go',
+		visitor: false,
+	});
+</script>
+
+        
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first">『明天再学』公众号文章备份</div>
+    <div class="social-container">
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        copyright@『明天再学』公众号
+    </div>
+    <div>
+        Theme by <a href="https://imhanjie.com/" target="_blank">imhanjie</a>, Powered by <a
+                href="https://github.com/getgridea/gridea" target="_blank">Gridea | <a href="https://yuz.one/atom.xml" target="_blank">RSS</a></a>
+    </div>
+</div>
+
+<script>
+  hljs.initHighlightingOnLoad()
+</script>
+
+    </div>
+</div>
+</body>
+</html>

@@ -1,82 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://yuz.one</id>
-    <title>WYZ-Python</title>
-    <updated>2021-03-03T09:33:52.322Z</updated>
+    <title>明天再学</title>
+    <updated>2021-03-04T05:27:43.112Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://yuz.one"/>
     <link rel="self" href="https://yuz.one/atom.xml"/>
+    <subtitle>『明天再学』公众号文章备份</subtitle>
     <logo>https://yuz.one/images/avatar.png</logo>
     <icon>https://yuz.one/favicon.ico</icon>
-    <rights>All rights reserved 2021, WYZ-Python</rights>
+    <rights>All rights reserved 2021, 明天再学</rights>
+    <entry>
+        <title type="html"><![CDATA[读前必看]]></title>
+        <id>https://yuz.one/du-qian-bi-kan/</id>
+        <link href="https://yuz.one/du-qian-bi-kan/">
+        </link>
+        <updated>2021-03-04T05:26:10.000Z</updated>
+    </entry>
     <entry>
         <title type="html"><![CDATA[使用 CSS 选择器，定位网页元素]]></title>
-        <id>https://yuz.one/post/shi-yong-css-xuan-ze-qi-ding-wei-wang-ye-yuan-su/</id>
-        <link href="https://yuz.one/post/shi-yong-css-xuan-ze-qi-ding-wei-wang-ye-yuan-su/">
+        <id>https://yuz.one/shi-yong-css-xuan-ze-qi-ding-wei-wang-ye-yuan-su/</id>
+        <link href="https://yuz.one/shi-yong-css-xuan-ze-qi-ding-wei-wang-ye-yuan-su/">
         </link>
         <updated>2021-03-03T09:26:56.000Z</updated>
     </entry>
     <entry>
         <title type="html"><![CDATA[selenium 启动时会遇到哪些坑]]></title>
-        <id>https://yuz.one/post/selenium-qi-dong-shi-hui-yu-dao-na-xie-keng/</id>
-        <link href="https://yuz.one/post/selenium-qi-dong-shi-hui-yu-dao-na-xie-keng/">
+        <id>https://yuz.one/selenium-qi-dong-shi-hui-yu-dao-na-xie-keng/</id>
+        <link href="https://yuz.one/selenium-qi-dong-shi-hui-yu-dao-na-xie-keng/">
         </link>
         <updated>2021-02-27T08:03:59.000Z</updated>
     </entry>
     <entry>
         <title type="html"><![CDATA[读取excel测试数据真的慢吗？]]></title>
-        <id>https://yuz.one/post/du-qu-excel-ce-shi-shu-ju-zhen-de-man-ma/</id>
-        <link href="https://yuz.one/post/du-qu-excel-ce-shi-shu-ju-zhen-de-man-ma/">
+        <id>https://yuz.one/du-qu-excel-ce-shi-shu-ju-zhen-de-man-ma/</id>
+        <link href="https://yuz.one/du-qu-excel-ce-shi-shu-ju-zhen-de-man-ma/">
         </link>
         <updated>2021-02-24T07:35:29.000Z</updated>
     </entry>
     <entry>
         <title type="html"><![CDATA[数据驱动不适合做 UI 自动化测试]]></title>
-        <id>https://yuz.one/post/shu-ju-qu-dong-bu-gua-he-zuo-ui-zi-dong-hua-ce-shi/</id>
-        <link href="https://yuz.one/post/shu-ju-qu-dong-bu-gua-he-zuo-ui-zi-dong-hua-ce-shi/">
+        <id>https://yuz.one/shu-ju-qu-dong-bu-gua-he-zuo-ui-zi-dong-hua-ce-shi/</id>
+        <link href="https://yuz.one/shu-ju-qu-dong-bu-gua-he-zuo-ui-zi-dong-hua-ce-shi/">
         </link>
         <updated>2021-02-24T06:57:45.000Z</updated>
     </entry>
     <entry>
         <title type="html"><![CDATA[jsonpath 教程]]></title>
-        <id>https://yuz.one/post/jsonpath-ng-jiao-cheng/</id>
-        <link href="https://yuz.one/post/jsonpath-ng-jiao-cheng/">
+        <id>https://yuz.one/jsonpath-ng-jiao-cheng/</id>
+        <link href="https://yuz.one/jsonpath-ng-jiao-cheng/">
         </link>
         <updated>2021-01-28T06:55:34.000Z</updated>
     </entry>
     <entry>
         <title type="html"><![CDATA[使用 python 操作数据库，只需要掌握 dataset]]></title>
-        <id>https://yuz.one/post/shi-yong-python-cao-zuo-shu-ju-ku-zhi-xu-yao-zhang-wo-dataset/</id>
-        <link href="https://yuz.one/post/shi-yong-python-cao-zuo-shu-ju-ku-zhi-xu-yao-zhang-wo-dataset/">
+        <id>https://yuz.one/shi-yong-python-cao-zuo-shu-ju-ku-zhi-xu-yao-zhang-wo-dataset/</id>
+        <link href="https://yuz.one/shi-yong-python-cao-zuo-shu-ju-ku-zhi-xu-yao-zhang-wo-dataset/">
         </link>
         <updated>2021-01-26T12:47:13.000Z</updated>
     </entry>
     <entry>
         <title type="html"><![CDATA[faker库生成数据]]></title>
-        <id>https://yuz.one/post/faker-ku-sheng-cheng-shu-ju/</id>
-        <link href="https://yuz.one/post/faker-ku-sheng-cheng-shu-ju/">
+        <id>https://yuz.one/faker-ku-sheng-cheng-shu-ju/</id>
+        <link href="https://yuz.one/faker-ku-sheng-cheng-shu-ju/">
         </link>
         <updated>2021-01-22T06:50:36.000Z</updated>
     </entry>
     <entry>
         <title type="html"><![CDATA[制作一个视频需要用到哪些工具]]></title>
-        <id>https://yuz.one/post/wo-zuo-liao-hui-shi-pin-gao-su-ni-xu-yao-yong-dao-na-xie-gong-ju/</id>
-        <link href="https://yuz.one/post/wo-zuo-liao-hui-shi-pin-gao-su-ni-xu-yao-yong-dao-na-xie-gong-ju/">
+        <id>https://yuz.one/wo-zuo-liao-hui-shi-pin-gao-su-ni-xu-yao-yong-dao-na-xie-gong-ju/</id>
+        <link href="https://yuz.one/wo-zuo-liao-hui-shi-pin-gao-su-ni-xu-yao-yong-dao-na-xie-gong-ju/">
         </link>
         <updated>2021-01-13T06:11:17.000Z</updated>
     </entry>
     <entry>
         <title type="html"><![CDATA[感谢 Gridea，让我有动力写作]]></title>
-        <id>https://yuz.one/post/gan-xie-gridearang-wo-you-dong-li-xie-zuo/</id>
-        <link href="https://yuz.one/post/gan-xie-gridearang-wo-you-dong-li-xie-zuo/">
+        <id>https://yuz.one/gan-xie-gridearang-wo-you-dong-li-xie-zuo/</id>
+        <link href="https://yuz.one/gan-xie-gridearang-wo-you-dong-li-xie-zuo/">
         </link>
         <updated>2021-01-08T05:50:27.000Z</updated>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[使用 mkdocs 搭建博客和编写文档]]></title>
-        <id>https://yuz.one/post/shi-yong-mkdocs-da-jian-bo-ke-he-bian-xie-wen-dang/</id>
-        <link href="https://yuz.one/post/shi-yong-mkdocs-da-jian-bo-ke-he-bian-xie-wen-dang/">
-        </link>
-        <updated>2021-01-07T13:49:15.000Z</updated>
     </entry>
 </feed>

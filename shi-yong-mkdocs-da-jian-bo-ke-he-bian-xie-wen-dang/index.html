@@ -1,0 +1,308 @@
+<html>
+<head>
+    <meta charset="utf-8"/>
+<meta name="description" content=""/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>使用 mkdocs 搭建博客和编写文档 | 明天再学</title>
+
+<link rel="shortcut icon" href="https://yuz.one/favicon.ico?v=1614835659230">
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://yuz.one/styles/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dockerfile.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dart.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script>
+<!-- DEMO JS -->
+<!--<script src="media/scripts/index.js"></script>-->
+
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <nav class="navbar navbar-expand-lg">
+    <div class="navbar-brand">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            明天再学
+        </div>
+    </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+                <div class="nav-item">
+                    
+                        <a href="/" class="menu gt-a-link">
+                            首页
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/archives" class="menu gt-a-link">
+                            归档
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/tags" class="menu gt-a-link">
+                            标签
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/post/about" class="menu gt-a-link">
+                            关于
+                        </a>
+                    
+                </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1614835659230" action="/search/index.html">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    使用 mkdocs 搭建博客和编写文档
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2021-01-07 ·
+                    </time>
+                    
+                        <a href="https://yuz.one/4R3sNY9ex/" class="post-tags">
+                            # 随笔
+                        </a>
+                    
+                </div>
+                <div class="post-content">
+                    <p>平时比较懒，写的文章和羊拉屎一样，东一点，西一点，散落在各个平台。 一直想把所有的文章都放在一个统一的地方，可以起到备份作用，同时也希望有一个自己的窝。</p>
+<p>以前也尝试用过 hexo 和 Hugo 这样的静态博客，搭配上主题还是非常舒服的。不过功能上偏向博客需求，如果想定制一些专题写作计划，实现起来比较麻烦。</p>
+<p>经过一番折腾，决定把文章签到到文档生成器上，看起来会系统一些，当然也会存在一些问题，比如标签管理和编写时间的缺失。任何计划都有利有弊，还是先做一个出来再说。</p>
+<h2 id="选择-mkdocs-还是-sphinx">选择 mkdocs 还是 sphinx</h2>
+<p>因为自己主要使用 python 语言，所以还是使用 python 开发的工具会比较有安全感，如果真遇到问题，至少可以通过源码去排查问题。python 其实也有 pelican 这样的静态博客生成器，使用起来也非常方便。在文档生成器上，主要有 2 个主流的：mkdocs 和 sphinx。</p>
+<p>很多大佬写的框架都是 sphinx 编写的，比如 requests 库就是通过 sphinx 部署在 readthedocs 平台上。</p>
+<p>mkdocs 用来会简单一些，而且越来越多的新框架使用 mkdocs 编写文档，像 web 开发框架 FastAPI。 看了一下 sphinx 和 mkdocs 的官方文档，mkdocs 会清晰一些， sphinx 看起来有点复杂。 又查看了 GitHub 上面两个库的 star 数，最后还是选择用 mkdocs。</p>
+<h2 id="安装-mkdocs">安装 mkdocs</h2>
+<p>mkdocs 使用 python 语言编写，先要下载 python 环境，然后通过 pip 安装：</p>
+<pre><code class="language-bash">pip install mkdocs
+</code></pre>
+<p>接下来使用 mkdocs 命令进行操作，命令主要有 4 个：</p>
+<ul>
+<li>build, 把 markdown 文档转成 html 页面，在网页中呈现的效果就是 build 之后的 html 文档；</li>
+<li>gh-deploy, 部署文档到 GitHub Pages, 主要作用是把生成的 HTML 文档放到 gh-pages 分支当中，然后让 GitHub Pages 显示 gh-pages 分支当中 HTML 页面；</li>
+<li>new 生成一个新的项目，其实就是创建一个 mkdocs.yml 的配置文件和 doc 目录存储 markdown 文件；</li>
+<li>serve 运行服务器，通过自己的方式在本地或服务器部署，内部是使用 tornado 作为服务器运行。</li>
+</ul>
+<p>先在任意目录下创建一个项目：</p>
+<pre><code class="language-bash">mkdocs new .
+</code></pre>
+<p>此时目录下会有一个 mkdocs.yml 文件和一个 docs/ 的子目录，子目录下面有一个 index.md 的文件。</p>
+<figure data-type="image" tabindex="1"><img src="https://yuz.one/post-images/%E4%BD%BF%E7%94%A8mkdocs%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E5%92%8C%E7%BC%96%E5%86%99%E6%96%87%E6%A1%A3/image-20201204151701164.png" alt="image-20201204151701164" loading="lazy"></figure>
+<h2 id="在-mkdocs-中写文章">在 mkdocs 中写文章</h2>
+<p><code>docs/index.md</code> 文件就是整个项目的首页，在本地开启服务：</p>
+<pre><code class="language-bash">mkdocs serve
+</code></pre>
+<p>通过浏览器访问 <code>http://localhost:8000</code>， 就可以看到 index.md 当中的内容了。</p>
+<figure data-type="image" tabindex="2"><img src="https://yuz.one/post-images/%E4%BD%BF%E7%94%A8mkdocs%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E5%92%8C%E7%BC%96%E5%86%99%E6%96%87%E6%A1%A3/image-20201204152132584.png" alt="image-20201204152132584" loading="lazy"></figure>
+<p>如果有新的文章，直接在 docs 目录下创建 markdown 文件。需要创建专题或者分类，可以创建子文件夹，mkdocs 默认会把这些文件放到导航栏展示出来。</p>
+<figure data-type="image" tabindex="3"><img src="https://yuz.one/post-images/%E4%BD%BF%E7%94%A8mkdocs%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E5%92%8C%E7%BC%96%E5%86%99%E6%96%87%E6%A1%A3/image-20201204153048450.png" alt="image-20201204153048450" loading="lazy"></figure>
+<h2 id="修改主题">修改主题</h2>
+<p>mkdocs 可以修改主题，改变页面的展示效果。 修改为内置主题只需要在 mkdocs.yml 文件中添加 theme 配置选项：</p>
+<pre><code class="language-yml">theme: 
+  name: readthedocs
+</code></pre>
+<p>再次访问页面，网站的展示就变成了 readthedocs 样式了。readthedocs 主题是自带的，不需要额外安装。</p>
+<figure data-type="image" tabindex="4"><img src="https://yuz.one/post-images/%E4%BD%BF%E7%94%A8mkdocs%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E5%92%8C%E7%BC%96%E5%86%99%E6%96%87%E6%A1%A3/image-20201204154033138.png" alt="image-20201204154033138" loading="lazy"></figure>
+<p>如果需要安装第三方的主题，先要安装才可以使用。我们来看一下 FastAPI 的文档主题 mkdocs material, 这个主题在 GitHub 上有 5.1k 的 star, 非常火爆。</p>
+<p>首先通过 pip 安装：</p>
+<pre><code class="language-bash">pip install mkdocs-material
+</code></pre>
+<p>再配置 mkdocs.yml 文件, 就可以使用这个模板了。</p>
+<pre><code>theme: 
+  name: material
+</code></pre>
+<p>mkdocs 也支持<a href="https://www.mkdocs.org/user-guide/custom-themes/">自定义主题</a>。这里就不折腾了，感兴趣的可以自己查资料。</p>
+<h2 id="配置导航">配置导航</h2>
+<p><a href="https://squidfunk.github.io/mkdocs-material/">mkdocs material 主题</a> 默认是不配置导航的，要开启主题的功能，继续配置 mkdocs.yml 文件，要获得各种效果，基本上只需要配置这个文件。</p>
+<pre><code class="language-yaml">theme: 
+  name: material
+  features: 
+    - navigation.tabs
+</code></pre>
+<figure data-type="image" tabindex="5"><img src="https://yuz.one/post-images/%E4%BD%BF%E7%94%A8mkdocs%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E5%92%8C%E7%BC%96%E5%86%99%E6%96%87%E6%A1%A3/image-20201204162017448.png" alt="image-20201204162017448" loading="lazy"></figure>
+<p>有时候你并不行把所有的目录都作为导航 tab 展示出来，你需要自己定义导航，同样可以在 mkdocs.yml 文件当中配置。 可以嵌套多级路径，但是只有顶层会显示在 tab 中，剩下的会在侧边栏展示。</p>
+<pre><code class="language-yaml">nav:
+  - 首页: index.md
+  - 编程: 
+    - python: python/index.md
+    - golang: golang/index.md
+</code></pre>
+<figure data-type="image" tabindex="6"><img src="https://yuz.one/post-images/%E4%BD%BF%E7%94%A8mkdocs%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E5%92%8C%E7%BC%96%E5%86%99%E6%96%87%E6%A1%A3/image-20201204173602745.png" alt="image-20201204173602745" loading="lazy"></figure>
+<h3 id="网站风格设置">网站风格设置</h3>
+<p><a href="https://squidfunk.github.io/mkdocs-material-insiders/reference/abbreviations/">官方网站</a>有非常多风格设置的说明，可以设置外观颜色，markdown 进阶语法和 emoji 表情等等。下面是一个参考的 mkdocs.yaml 设置：</p>
+<pre><code class="language-yml">site_name: My Docs
+theme: 
+  name: material
+  # 设置中文
+  language: zh
+  palette:
+    # 主色调
+    primary: brown
+  features: 
+    - navigation.tabs
+nav:
+  - 首页: index.md
+  - 编程: 
+    - python: python/index.md
+    - golang: golang/index.md
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - codehilite:
+      guess_lang: false
+      linenums: false
+  - toc:
+      permalink: true
+  - footnotes
+  - meta
+  - def_list
+  - pymdownx.arithmatex
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.caret
+  - pymdownx.critic
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_generator: !!python/name:pymdownx.emoji.to_png
+  - pymdownx.inlinehilite
+  - pymdownx.magiclink
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.superfences
+  - pymdownx.tasklist
+  - pymdownx.tilde
+</code></pre>
+<h2 id="发布到-github-pages">发布到 GitHub Pages</h2>
+<p>第一步：在 github 账号上创建一个库名为：<code>&lt;username&gt;.github.io</code>，把远程仓库的名称添加到本地仓库：</p>
+<pre><code class="language-bash">git remote add github https://github.com/yourname/yourname.github.io.git
+</code></pre>
+<p>第二步：生成对应的 HTML 文档，文档会被放到 gh-pages 分支下：</p>
+<pre><code class="language-bash">mkdocs gh-deploy
+</code></pre>
+<p>第三步：把本地仓库 push 到远程仓库地址，注意要把 master 分支和 gh-pages 分支都推送：</p>
+<pre><code>git push github --all
+</code></pre>
+<p>这里的 github 是远程仓库的名称，你也可以取其他的名字。</p>
+<p>第四步：在 github 的项目设置里设置默认分支为 gh-pages 分支:</p>
+<figure data-type="image" tabindex="7"><img src="https://yuz.one/post-images/%E4%BD%BF%E7%94%A8mkdocs%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E5%92%8C%E7%BC%96%E5%86%99%E6%96%87%E6%A1%A3/image-20201204193338868.png" alt="image-20201204193338868" loading="lazy"></figure>
+<p>访问 looker53.github.io 就可以看到项目了。</p>
+<figure data-type="image" tabindex="8"><img src="https://yuz.one/post-images/%E4%BD%BF%E7%94%A8mkdocs%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E5%92%8C%E7%BC%96%E5%86%99%E6%96%87%E6%A1%A3/image-20201204193430258.png" alt="image-20201204193430258" loading="lazy"></figure>
+
+                </div>
+            </article>
+        </div>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://yuz.one/toml-pei-zhi-wen-jian-jian-ming-jiao-cheng/" class="post-title gt-a-link">
+                    TOML 配置文件简明教程
+                </a>
+            </div>
+        
+
+        
+
+        
+
+        
+            <script src='https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js'></script>
+
+<style>
+	div#vcomments{
+		width:100%;
+		max-width: 1000px;
+		padding: 2.5%
+	}
+</style>
+
+
+	<div id="vcomments"></div>
+
+<script>
+	new Valine({
+		el: '#vcomments',
+		appId: '',
+		appKey: '',
+		avatar: '',
+		pageSize: 5,
+		recordIp: false,
+		placeholder: 'Just Go Go',
+		visitor: false,
+	});
+</script>
+
+        
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first">『明天再学』公众号文章备份</div>
+    <div class="social-container">
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        copyright@『明天再学』公众号
+    </div>
+    <div>
+        Theme by <a href="https://imhanjie.com/" target="_blank">imhanjie</a>, Powered by <a
+                href="https://github.com/getgridea/gridea" target="_blank">Gridea | <a href="https://yuz.one/atom.xml" target="_blank">RSS</a></a>
+    </div>
+</div>
+
+<script>
+  hljs.initHighlightingOnLoad()
+</script>
+
+    </div>
+</div>
+</body>
+</html>

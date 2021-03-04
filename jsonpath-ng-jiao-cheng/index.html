@@ -1,0 +1,351 @@
+<html>
+<head>
+    <meta charset="utf-8"/>
+<meta name="description" content=""/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>jsonpath 教程 | 明天再学</title>
+
+<link rel="shortcut icon" href="https://yuz.one/favicon.ico?v=1614835659230">
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://yuz.one/styles/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dockerfile.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dart.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script>
+<!-- DEMO JS -->
+<!--<script src="media/scripts/index.js"></script>-->
+
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <nav class="navbar navbar-expand-lg">
+    <div class="navbar-brand">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            明天再学
+        </div>
+    </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+                <div class="nav-item">
+                    
+                        <a href="/" class="menu gt-a-link">
+                            首页
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/archives" class="menu gt-a-link">
+                            归档
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/tags" class="menu gt-a-link">
+                            标签
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/post/about" class="menu gt-a-link">
+                            关于
+                        </a>
+                    
+                </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1614835659230" action="/search/index.html">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    jsonpath 教程
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2021-01-28 ·
+                    </time>
+                    
+                        <a href="https://yuz.one/EYo7KcNtC/" class="post-tags">
+                            # 计算机基础
+                        </a>
+                    
+                </div>
+                <div class="post-content">
+                    <p><a href="https://goessner.net/articles/JsonPath/">jsonpath</a><sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup> 是一种解析 json 数据的技术，主要用来快速提取 json 数据当中的某部分内容。</p>
+<p>先来看一个例子。</p>
+<p>某个接口返回了一个 json 数据，现在需要把 json 数据当中的 city 值提取出来。</p>
+<pre><code class="language-json">{
+  &quot;firstName&quot;: &quot;John&quot;,
+  &quot;lastName&quot; : &quot;doe&quot;,
+  &quot;age&quot;      : 26,
+  &quot;address&quot;  : {
+    &quot;streetAddress&quot;: &quot;naist street&quot;,
+    &quot;city&quot;         : &quot;Nara&quot;,
+    &quot;postalCode&quot;   : &quot;630-0192&quot;
+  },
+  &quot;phoneNumbers&quot;: [
+    {
+      &quot;type&quot;  : &quot;iPhone&quot;,
+      &quot;number&quot;: &quot;0123-4567-8888&quot;
+    },
+    {
+      &quot;type&quot;  : &quot;home&quot;,
+      &quot;number&quot;: &quot;0123-4567-8910&quot;
+    }
+  ]
+}
+</code></pre>
+<p>如果使用 jsonpath 技术，可以先写好 jsonpath 表达式：</p>
+<pre><code>$.address.city
+</code></pre>
+<p>然后通过<a href="https://jsonpath.curiousconcept.com/#">在线jsonpath解析网站</a>可以得到结果，所有匹配的结果会存在一个元组当中。</p>
+<pre><code>[&quot;Nara&quot;]
+</code></pre>
+<h3 id="jsonpath-语法">jsonpath 语法</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">JSONPath</th>
+<th>描述</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">$</td>
+<td>根目录对象，提取所有</td>
+<td>$</td>
+</tr>
+<tr>
+<td style="text-align:left">. 或者 []</td>
+<td>子元素</td>
+<td><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi mathvariant="normal">.</mi><mi>a</mi><mi>g</mi><mi>e</mi><mi mathvariant="normal">、</mi></mrow><annotation encoding="application/x-tex">.age 、</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord">.</span><span class="mord mathdefault">a</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault">e</span><span class="mord cjk_fallback">、</span></span></span></span>[age] 、$['age']</td>
+</tr>
+<tr>
+<td style="text-align:left">..</td>
+<td>子孙元素</td>
+<td>$..number</td>
+</tr>
+<tr>
+<td style="text-align:left">[0] 或者 .0</td>
+<td>索引</td>
+<td>phoneNumbers[0]</td>
+</tr>
+<tr>
+<td style="text-align:left">[0:2:step]</td>
+<td>切片</td>
+<td>phoneNumbers[0:2]</td>
+</tr>
+<tr>
+<td style="text-align:left">[0,1]</td>
+<td>联合、或者</td>
+<td>phoneNumbers[0,1]</td>
+</tr>
+<tr>
+<td style="text-align:left">*</td>
+<td>通配符</td>
+<td>address.* 、address[*]</td>
+</tr>
+<tr>
+<td style="text-align:left">@</td>
+<td>当前对象或元素，通过和 () 一起使用</td>
+<td>phoneNumbers[(@.length-2)]</td>
+</tr>
+<tr>
+<td style="text-align:left">?()</td>
+<td>过滤表达式</td>
+<td>phoneNumbers[?(@.type==&quot;iPhone&quot;)]</td>
+</tr>
+</tbody>
+</table>
+<p>分别来看看这些表达式的结果吧：</p>
+<ul>
+<li>$..number， 提取所有 key 为 number 的值</li>
+</ul>
+<figure data-type="image" tabindex="1"><img src="https://i.loli.net/2021/01/28/vCy8oPhQ2WNiplO.png" alt="image-20210128212826936.png" loading="lazy"></figure>
+<ul>
+<li>phoneNumbers[0] 或者 phoneNumbers.0 ，获取 phoneNumbers 下面的数组第一个元素， jsonpath 的索引是从 0 开始的。</li>
+</ul>
+<figure data-type="image" tabindex="2"><img src="https://i.loli.net/2021/01/28/cgaEWGfeYpJuAdV.png" alt="image-20210128213120003" loading="lazy"></figure>
+<ul>
+<li>phoneNumbers[0].type 或者 phoneNumbers.0.type</li>
+</ul>
+<figure data-type="image" tabindex="3"><img src="https://i.loli.net/2021/01/28/eD2zo6GY8p9IfAt.png" alt="image-20210128213306149" loading="lazy"></figure>
+<ul>
+<li>phoneNumbers[0:2] 或者   phoneNumbers.0:2， 结尾位置不包含在内。</li>
+</ul>
+<figure data-type="image" tabindex="4"><img src="https://i.loli.net/2021/01/28/vx4Hc71F5unUA8h.png" alt="image-20210128213518524.png" loading="lazy"></figure>
+<ul>
+<li>phoneNumbers[0:2].number 或者   phoneNumbers.0:2.number</li>
+</ul>
+<figure data-type="image" tabindex="5"><img src="https://i.loli.net/2021/01/28/8bTtsIvUyLZXMGl.png" alt="image-20210128213757154.png" loading="lazy"></figure>
+<ul>
+<li>phoneNumbers[0,1].number 或者   phoneNumbers.0,1.number</li>
+</ul>
+<figure data-type="image" tabindex="6"><img src="https://i.loli.net/2021/01/28/WcPt4lTq5LnyAvZ.png" alt="image-20210128213838081.png" loading="lazy"></figure>
+<ul>
+<li>address.* 或者 address[*]</li>
+</ul>
+<figure data-type="image" tabindex="7"><img src="https://i.loli.net/2021/01/28/6BFxbqHNUoJKp1c.png" alt="image-20210128214026200" loading="lazy"></figure>
+<p>注意和 address 区分哦：</p>
+<pre><code>[
+  {
+    &quot;streetAddress&quot;: &quot;naist street&quot;,
+    &quot;city&quot;: &quot;Nara&quot;,
+    &quot;postalCode&quot;: &quot;630-0192&quot;
+  }
+]
+</code></pre>
+<ul>
+<li>phoneNumbers[(@.length-2)] 获取phoneNumbers 下面的元组长度 - 2 的元素，等价于 phoneNumbers[0]</li>
+</ul>
+<figure data-type="image" tabindex="8"><img src="https://i.loli.net/2021/01/28/1Vr8cFKeijmpsuN.png" alt="image-20210128214206603" loading="lazy"></figure>
+<ul>
+<li>对于数组，可以使用过滤。过滤 phoneNumbers[?(@.type==&quot;iPhone&quot;)]</li>
+</ul>
+<figure data-type="image" tabindex="9"><img src="https://i.loli.net/2021/01/28/nrBaqcvILkMuWj9.png" alt="image-20210128214258326" loading="lazy"></figure>
+<ul>
+<li>正则表达式。phoneNumbers[?(@.type =~ &quot;^h.*&quot;)]</li>
+</ul>
+<figure data-type="image" tabindex="10"><img src="https://i.loli.net/2021/01/28/R9okrx3cs8ulhzS.png" alt="image-20210128214446109.png" loading="lazy"></figure>
+<h3 id="jsonpath-ng"><a href="https://pypi.org/project/jsonpath-ng/">jsonpath-ng</a></h3>
+<p>jsonpath-ng<sup class="footnote-ref"><a href="#fn2" id="fnref2">[2]</a></sup> 是 python 解析 json 数据的一个库。融合了 <a href="https://github.com/kennknowles/python-jsonpath-rw">jsonpath-rw</a> 和 <a href="https://pypi.org/project/jsonpath-rw-ext/">jsonpath-rw-ext</a> 的用法，支持正则等扩展操作。</p>
+<pre><code class="language-python">from jsonpath_ng.ext import parse
+
+s =  {&quot;phoneNumbers&quot;: [
+    {
+      &quot;type&quot;  : &quot;iPhone&quot;,
+      &quot;number&quot;: &quot;0123-4567-8888&quot;
+    },
+    {
+      &quot;type&quot;  : &quot;home&quot;,
+      &quot;number&quot;: &quot;0123-4567-8910&quot;
+    }
+  ]
+}
+
+# 使用正则表达式匹配 home
+parser = parse('phoneNumbers[?(@.type =~ &quot;^h.*&quot;)]')
+resp = parser.find(s)
+</code></pre>
+<hr class="footnotes-sep">
+<section class="footnotes">
+<ol class="footnotes-list">
+<li id="fn1" class="footnote-item"><p>https://goessner.net/articles/JsonPath/ <a href="#fnref1" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn2" class="footnote-item"><p>https://pypi.org/project/jsonpath-ng/ <a href="#fnref2" class="footnote-backref">↩︎</a></p>
+</li>
+</ol>
+</section>
+
+                </div>
+            </article>
+        </div>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://yuz.one/shi-yong-python-cao-zuo-shu-ju-ku-zhi-xu-yao-zhang-wo-dataset/" class="post-title gt-a-link">
+                    使用 python 操作数据库，只需要掌握 dataset
+                </a>
+            </div>
+        
+
+        
+
+        
+
+        
+            <script src='https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js'></script>
+
+<style>
+	div#vcomments{
+		width:100%;
+		max-width: 1000px;
+		padding: 2.5%
+	}
+</style>
+
+
+	<div id="vcomments"></div>
+
+<script>
+	new Valine({
+		el: '#vcomments',
+		appId: '',
+		appKey: '',
+		avatar: '',
+		pageSize: 5,
+		recordIp: false,
+		placeholder: 'Just Go Go',
+		visitor: false,
+	});
+</script>
+
+        
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first">『明天再学』公众号文章备份</div>
+    <div class="social-container">
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        copyright@『明天再学』公众号
+    </div>
+    <div>
+        Theme by <a href="https://imhanjie.com/" target="_blank">imhanjie</a>, Powered by <a
+                href="https://github.com/getgridea/gridea" target="_blank">Gridea | <a href="https://yuz.one/atom.xml" target="_blank">RSS</a></a>
+    </div>
+</div>
+
+<script>
+  hljs.initHighlightingOnLoad()
+</script>
+
+    </div>
+</div>
+</body>
+</html>
