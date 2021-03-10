@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://yuz.one</id>
     <title>明天再学</title>
-    <updated>2021-03-04T09:01:36.639Z</updated>
+    <updated>2021-03-10T10:19:01.777Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://yuz.one"/>
     <link rel="self" href="https://yuz.one/atom.xml"/>
@@ -10,6 +10,13 @@
     <logo>https://yuz.one/images/avatar.png</logo>
     <icon>https://yuz.one/favicon.ico</icon>
     <rights>All rights reserved 2021, 明天再学</rights>
+    <entry>
+        <title type="html"><![CDATA[优化自动化测试流程，使用 flask 开发一个 toy jenkins工具]]></title>
+        <id>https://yuz.one/you-hua-zi-dong-hua-ce-shi-liu-cheng-shi-yong-flask-kai-fa-yi-ge-toy-jenkins-gong-ju/</id>
+        <link href="https://yuz.one/you-hua-zi-dong-hua-ce-shi-liu-cheng-shi-yong-flask-kai-fa-yi-ge-toy-jenkins-gong-ju/">
+        </link>
+        <updated>2021-03-10T10:17:34.000Z</updated>
+    </entry>
     <entry>
         <title type="html"><![CDATA[「明天再学」微信公众号开通了]]></title>
         <id>https://yuz.one/du-qian-bi-kan/</id>
@@ -76,12 +83,5 @@
         <link href="https://yuz.one/wo-zuo-liao-hui-shi-pin-gao-su-ni-xu-yao-yong-dao-na-xie-gong-ju/">
         </link>
         <updated>2021-01-13T06:11:17.000Z</updated>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[感谢 Gridea，让我有动力写作]]></title>
-        <id>https://yuz.one/gan-xie-gridearang-wo-you-dong-li-xie-zuo/</id>
-        <link href="https://yuz.one/gan-xie-gridearang-wo-you-dong-li-xie-zuo/">
-        </link>
-        <updated>2021-01-08T05:50:27.000Z</updated>
     </entry>
 </feed>
