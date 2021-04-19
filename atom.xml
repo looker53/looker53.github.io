@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://yuz.one</id>
     <title>明天再学</title>
-    <updated>2021-03-10T11:21:24.508Z</updated>
+    <updated>2021-04-19T10:00:43.828Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://yuz.one"/>
     <link rel="self" href="https://yuz.one/atom.xml"/>
@@ -10,6 +10,13 @@
     <logo>https://yuz.one/images/avatar.png</logo>
     <icon>https://yuz.one/favicon.ico</icon>
     <rights>All rights reserved 2021, 明天再学</rights>
+    <entry>
+        <title type="html"><![CDATA[python加密]]></title>
+        <id>https://yuz.one/python-jia-mi/</id>
+        <link href="https://yuz.one/python-jia-mi/">
+        </link>
+        <updated>2021-04-19T09:42:47.000Z</updated>
+    </entry>
     <entry>
         <title type="html"><![CDATA[优化自动化测试流程，使用 flask 开发一个 toy jenkins工具]]></title>
         <id>https://yuz.one/you-hua-zi-dong-hua-ce-shi-liu-cheng-shi-yong-flask-kai-fa-yi-ge-toy-jenkins-gong-ju/</id>
@@ -23,9 +30,9 @@
         <link href="https://yuz.one/du-qian-bi-kan/">
         </link>
         <updated>2021-03-04T05:26:10.000Z</updated>
-        <summary type="html"><![CDATA[<p>可以扫旁边的二维码关注。</p>
+        <summary type="html"><![CDATA[<center>扫码关注</center>
 ]]></summary>
-        <content type="html"><![CDATA[<p>可以扫旁边的二维码关注。</p>
+        <content type="html"><![CDATA[<center>扫码关注</center>
 ]]></content>
     </entry>
     <entry>
@@ -76,12 +83,5 @@
         <link href="https://yuz.one/faker-ku-sheng-cheng-shu-ju/">
         </link>
         <updated>2021-01-22T06:50:36.000Z</updated>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[制作一个视频需要用到哪些工具]]></title>
-        <id>https://yuz.one/wo-zuo-liao-hui-shi-pin-gao-su-ni-xu-yao-yong-dao-na-xie-gong-ju/</id>
-        <link href="https://yuz.one/wo-zuo-liao-hui-shi-pin-gao-su-ni-xu-yao-yong-dao-na-xie-gong-ju/">
-        </link>
-        <updated>2021-01-13T06:11:17.000Z</updated>
     </entry>
 </feed>

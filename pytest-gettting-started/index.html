@@ -1,116 +1,108 @@
 <html>
-<head>
-    <meta charset="utf-8"/>
-<meta name="description" content=""/>
-<meta name="viewport" content="width=device-width, initial-scale=1"/>
-
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>python单元测试框架 pytest 入门 | 明天再学</title>
-
-<link rel="shortcut icon" href="https://yuz.one/favicon.ico?v=1615371662923">
-
-<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="shortcut icon" href="https://yuz.one/favicon.ico?v=1618826415697">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://yuz.one/styles/main.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css">
-
-<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
-<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dockerfile.min.js"></script>
-<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dart.min.js"></script>
-
-<script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script>
-<!-- DEMO JS -->
-<!--<script src="media/scripts/index.js"></script>-->
+<link rel="alternate" type="application/atom+xml" title="python单元测试框架 pytest 入门 | 明天再学 - Atom Feed" href="https://yuz.one/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
 
 
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
-</head>
-<body>
-<div class="main gt-bg-theme-color-first">
-    <nav class="navbar navbar-expand-lg">
-    <div class="navbar-brand">
-        <img class="user-avatar" src="/images/avatar.png" alt="头像">
-        <div class="site-name gt-c-content-color-first">
-            明天再学
-        </div>
-    </div>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <div class="navbar-nav mr-auto" style="text-align: center">
+    <meta name="description" content="1、引言
+我有一个朋友是做Python自动化测试的。前几天他告诉我去参加一个大厂面试被刷了。
+我问他是有没有总结被刷下来的原因。他说面试官问了一些 pytest 单元测试框架相关的知识，包括什么插件系统和用力筛选。但是他所在的公司用的技术是..." />
+    <meta name="keywords" content="python,pytest,测试" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://yuz.one">
+  <img class="avatar" src="https://yuz.one/images/avatar.png?v=1618826415697" alt="">
+  </a>
+  <h1 class="site-title">
+    明天再学
+  </h1>
+  <p class="site-description">
+    『明天再学』公众号文章备份
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              python单元测试框架 pytest 入门
+            </h2>
+            <div class="post-info">
+              <span>
+                2021-01-07
+              </span>
+              <span>
+                11 min read
+              </span>
+              
+                <a href="https://yuz.one/GkoFI8qH-/" class="post-tag">
+                  # python
+                </a>
+              
+                <a href="https://yuz.one/VXV_W9-dbU/" class="post-tag">
+                  # pytest
+                </a>
+              
+                <a href="https://yuz.one/jr4f84iIgJ/" class="post-tag">
+                  # 测试
+                </a>
+              
+            </div>
             
-                <div class="nav-item">
-                    
-                        <a href="/" class="menu gt-a-link">
-                            首页
-                        </a>
-                    
-                </div>
-            
-                <div class="nav-item">
-                    
-                        <a href="/archives" class="menu gt-a-link">
-                            归档
-                        </a>
-                    
-                </div>
-            
-                <div class="nav-item">
-                    
-                        <a href="/tags" class="menu gt-a-link">
-                            标签
-                        </a>
-                    
-                </div>
-            
-                <div class="nav-item">
-                    
-                        <a href="/post/about" class="menu gt-a-link">
-                            关于
-                        </a>
-                    
-                </div>
-            
-        </div>
-        <div style="text-align: center">
-            <form id="gridea-search-form" style="position: relative" data-update="1615371662923" action="/search/index.html">
-                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
-                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
-            </form>
-        </div>
-    </div>
-</nav>
-
-    <div class="post-container">
-        <div class="post-detail gt-bg-theme-color-second">
-            <article class="gt-post-content">
-                <h2 class="post-title">
-                    python单元测试框架 pytest 入门
-                </h2>
-                <div class="post-info">
-                    <time class="post-time gt-c-content-color-first">
-                        · 2021-01-07 ·
-                    </time>
-                    
-                        <a href="https://yuz.one/GkoFI8qH-/" class="post-tags">
-                            # python
-                        </a>
-                    
-                        <a href="https://yuz.one/VXV_W9-dbU/" class="post-tags">
-                            # pytest
-                        </a>
-                    
-                        <a href="https://yuz.one/jr4f84iIgJ/" class="post-tags">
-                            # 测试
-                        </a>
-                    
-                </div>
-                <div class="post-content">
-                    <h3 id="1-引言">1、引言</h3>
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <h3 id="1-引言">1、引言</h3>
 <p>我有一个朋友是做Python自动化测试的。前几天他告诉我去参加一个大厂面试被刷了。</p>
 <p>我问他是有没有总结被刷下来的原因。他说面试官问了一些 pytest 单元测试框架相关的知识，包括什么插件系统和用力筛选。但是他所在的公司用的技术是基于 unittest 的,没有用过 pytest。</p>
 <p>我跟他说你可以和技术面试官说明，在实际过程当中你没有使用过 pytest，但是你可以后面再学。这哥们说：我就是这样跟面试官说的，但是面试官告诉我 pytest 现在已经是行业里面的主流，还在坚持用 unittest 说明我的技术已经过时了，没有跟上现在测试领域的发展。</p>
@@ -276,76 +268,83 @@ def test_add(a, b, expected):
 <figure data-type="image" tabindex="7"><img src="https://yuz.one/post-images/image-20201221181320782.png" alt="image-20201221181320782" loading="lazy"></figure>
 <p>pytest 之所以成为主流，有很多的原因，其中最重要的一个原因是因为其强大的插件系统。任何一个程序员，只要遵循一些简单的规范，就可以轻易的编写插件。后面我们再跟大家深入去研究 pytest 当中的夹具系统，插件系统和钩子函数这些特性。</p>
 
-                </div>
-            </article>
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#1-%E5%BC%95%E8%A8%80">1、引言</a></li>
+<li><a href="#2-%E4%B8%BA%E4%BB%80%E4%B9%88%E7%94%A8%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E6%A1%86%E6%9E%B6">2、为什么用单元测试框架？</a></li>
+<li><a href="#3-pytest-%E7%9A%84%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8">3、pytest 的基础使用</a></li>
+<li><a href="#4-%E6%B5%8B%E8%AF%95%E5%A4%B9%E5%85%B7fixture%E6%98%AF%E4%BB%80%E4%B9%88">4、测试夹具（Fixture）是什么？</a></li>
+<li><a href="#5-%E6%95%B0%E6%8D%AE%E9%A9%B1%E5%8A%A8%E5%92%8C%E5%8F%82%E6%95%B0%E5%8C%96">5、数据驱动和参数化</a></li>
+<li><a href="#6-%E6%B5%8B%E8%AF%95%E6%8A%A5%E5%91%8A%E5%92%8C%E6%8F%92%E4%BB%B6">6、测试报告和插件</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
         </div>
 
         
 
         
 
-        
-
-        
-            <script src='https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js'></script>
-
-<style>
-	div#vcomments{
-		width:100%;
-		max-width: 1000px;
-		padding: 2.5%
-	}
-</style>
-
-
-	<div id="vcomments"></div>
-
-<script>
-	new Valine({
-		el: '#vcomments',
-		appId: '',
-		appKey: '',
-		avatar: '',
-		pageSize: 5,
-		recordIp: false,
-		placeholder: 'Just Go Go',
-		visitor: false,
-	});
-</script>
-
-        
-
-        <div class="site-footer gt-c-content-color-first">
-    <div class="slogan gt-c-content-color-first">『明天再学』公众号文章备份</div>
-    <div class="social-container">
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-    </div>
-    <div class="footer-info">
-        copyright@『明天再学』公众号
-    </div>
-    <div>
-        Theme by <a href="https://imhanjie.com/" target="_blank">imhanjie</a>, Powered by <a
-                href="https://github.com/getgridea/gridea" target="_blank">Gridea | <a href="https://yuz.one/atom.xml" target="_blank">RSS</a></a>
-    </div>
+        <div class="site-footer">
+  copyright@『明天再学』公众号
+  <a class="rss" href="https://yuz.one/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
 </div>
 
-<script>
-  hljs.initHighlightingOnLoad()
-</script>
-
+      </div>
     </div>
-</div>
-</body>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
 </html>

@@ -1,108 +1,99 @@
 <html>
-<head>
-    <meta charset="utf-8"/>
-<meta name="description" content=""/>
-<meta name="viewport" content="width=device-width, initial-scale=1"/>
-
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>TOML 配置文件简明教程 | 明天再学</title>
-
-<link rel="shortcut icon" href="https://yuz.one/favicon.ico?v=1615371662923">
-
-<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="shortcut icon" href="https://yuz.one/favicon.ico?v=1618826415697">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://yuz.one/styles/main.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css">
-
-<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
-<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dockerfile.min.js"></script>
-<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dart.min.js"></script>
-
-<script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script>
-<!-- DEMO JS -->
-<!--<script src="media/scripts/index.js"></script>-->
+<link rel="alternate" type="application/atom+xml" title="TOML 配置文件简明教程 | 明天再学 - Atom Feed" href="https://yuz.one/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
 
 
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
-</head>
-<body>
-<div class="main gt-bg-theme-color-first">
-    <nav class="navbar navbar-expand-lg">
-    <div class="navbar-brand">
-        <img class="user-avatar" src="/images/avatar.png" alt="头像">
-        <div class="site-name gt-c-content-color-first">
-            明天再学
-        </div>
-    </div>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <div class="navbar-nav mr-auto" style="text-align: center">
+    <meta name="description" content="今天我们一起来学习toml这种简洁的配置文件格式吧。
+TOML是在 2013 年发布的配置文件格式。距今虽然有8年历史了，但是之前一直没有在大项目中见过的。我是前段时间在看python的pep规范，无意中看到了这种配置文件格式，稍微了解了一..." />
+    <meta name="keywords" content="计算机基础" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://yuz.one">
+  <img class="avatar" src="https://yuz.one/images/avatar.png?v=1618826415697" alt="">
+  </a>
+  <h1 class="site-title">
+    明天再学
+  </h1>
+  <p class="site-description">
+    『明天再学』公众号文章备份
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              TOML 配置文件简明教程
+            </h2>
+            <div class="post-info">
+              <span>
+                2021-01-07
+              </span>
+              <span>
+                6 min read
+              </span>
+              
+                <a href="https://yuz.one/EYo7KcNtC/" class="post-tag">
+                  # 计算机基础
+                </a>
+              
+            </div>
             
-                <div class="nav-item">
-                    
-                        <a href="/" class="menu gt-a-link">
-                            首页
-                        </a>
-                    
-                </div>
-            
-                <div class="nav-item">
-                    
-                        <a href="/archives" class="menu gt-a-link">
-                            归档
-                        </a>
-                    
-                </div>
-            
-                <div class="nav-item">
-                    
-                        <a href="/tags" class="menu gt-a-link">
-                            标签
-                        </a>
-                    
-                </div>
-            
-                <div class="nav-item">
-                    
-                        <a href="/post/about" class="menu gt-a-link">
-                            关于
-                        </a>
-                    
-                </div>
-            
-        </div>
-        <div style="text-align: center">
-            <form id="gridea-search-form" style="position: relative" data-update="1615371662923" action="/search/index.html">
-                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
-                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
-            </form>
-        </div>
-    </div>
-</nav>
-
-    <div class="post-container">
-        <div class="post-detail gt-bg-theme-color-second">
-            <article class="gt-post-content">
-                <h2 class="post-title">
-                    TOML 配置文件简明教程
-                </h2>
-                <div class="post-info">
-                    <time class="post-time gt-c-content-color-first">
-                        · 2021-01-07 ·
-                    </time>
-                    
-                        <a href="https://yuz.one/EYo7KcNtC/" class="post-tags">
-                            # 计算机基础
-                        </a>
-                    
-                </div>
-                <div class="post-content">
-                    <p>今天我们一起来学习toml这种简洁的配置文件格式吧。</p>
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>今天我们一起来学习toml这种简洁的配置文件格式吧。</p>
 <p>TOML是在 2013 年发布的配置文件格式。距今虽然有8年历史了，但是之前一直没有在大项目中见过的。我是前段时间在看python的pep规范，无意中看到了这种配置文件格式，稍微了解了一下，才发现现在有很多新的明星项目都喜欢用它来做配置文件。</p>
 <p>1、有rust语言的包管理工具cargo；</p>
 <p>2、类似于docker的容器工具containerd；</p>
@@ -310,83 +301,95 @@ with open('demo.toml', encoding='utf-8') as f:
 </ol>
 </section>
 
-                </div>
-            </article>
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#1-%E4%B8%80%E4%B8%AA%E5%B0%8F%E4%BE%8B%E5%AD%90">1. 一个小例子</a></li>
+<li><a href="#2-%E5%AD%97%E7%AC%A6%E4%B8%B2">2. 字符串</a></li>
+<li><a href="#3-%E6%95%B0%E5%AD%97">3. 数字</a></li>
+<li><a href="#4-%E5%B8%83%E5%B0%94">4. 布尔</a></li>
+<li><a href="#5-%E6%97%B6%E9%97%B4">5. 时间</a></li>
+<li><a href="#6-%E6%95%B0%E7%BB%84">6. 数组</a></li>
+<li><a href="#7-%E5%93%88%E5%B8%8C%E8%A1%A8">7. 哈希表</a></li>
+<li><a href="#%E8%A1%A8%E5%92%8C%E6%95%B0%E7%BB%84%E7%9A%84%E9%85%8D%E5%A5%97%E4%BD%BF%E7%94%A8">表和数组的配套使用</a></li>
+<li><a href="#%E4%BD%BF%E7%94%A8-python-%E8%A7%A3%E6%9E%90">使用 python 解析</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
         </div>
 
         
-            <div class="next-post">
-                <div class="next gt-c-content-color-first">下一篇</div>
-                <a href="https://yuz.one/shi-yong-python-he-selenium-zuo-liu-lan-qi-jian-rong-ce-shi/" class="post-title gt-a-link">
-                    使用 python 和 selenium 做浏览器兼容测试
-                </a>
-            </div>
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://yuz.one/shi-yong-python-he-selenium-zuo-liu-lan-qi-jian-rong-ce-shi/">
+              <h3 class="post-title">
+                使用 python 和 selenium 做浏览器兼容测试
+              </h3>
+            </a>
+          </div>
         
 
         
 
-        
-
-        
-            <script src='https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js'></script>
-
-<style>
-	div#vcomments{
-		width:100%;
-		max-width: 1000px;
-		padding: 2.5%
-	}
-</style>
-
-
-	<div id="vcomments"></div>
-
-<script>
-	new Valine({
-		el: '#vcomments',
-		appId: '',
-		appKey: '',
-		avatar: '',
-		pageSize: 5,
-		recordIp: false,
-		placeholder: 'Just Go Go',
-		visitor: false,
-	});
-</script>
-
-        
-
-        <div class="site-footer gt-c-content-color-first">
-    <div class="slogan gt-c-content-color-first">『明天再学』公众号文章备份</div>
-    <div class="social-container">
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-    </div>
-    <div class="footer-info">
-        copyright@『明天再学』公众号
-    </div>
-    <div>
-        Theme by <a href="https://imhanjie.com/" target="_blank">imhanjie</a>, Powered by <a
-                href="https://github.com/getgridea/gridea" target="_blank">Gridea | <a href="https://yuz.one/atom.xml" target="_blank">RSS</a></a>
-    </div>
+        <div class="site-footer">
+  copyright@『明天再学』公众号
+  <a class="rss" href="https://yuz.one/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
 </div>
 
-<script>
-  hljs.initHighlightingOnLoad()
-</script>
-
+      </div>
     </div>
-</div>
-</body>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
 </html>

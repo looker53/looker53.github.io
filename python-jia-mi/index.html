@@ -1,0 +1,460 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>python加密 | 明天再学</title>
+<link rel="shortcut icon" href="https://yuz.one/favicon.ico?v=1618826415697">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://yuz.one/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="python加密 | 明天再学 - Atom Feed" href="https://yuz.one/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="长期以来，python 处理各种加密算法都没有一个统一好用的库，但是最近发现了 Cryptography 这个库，基本上统一了各个算法的使用方式，而且主流的加密算法都支持，以后可以尽量使用这个库处理加密问题。
+关于密码学的底层知识有非常多需..." />
+    <meta name="keywords" content="python" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://yuz.one">
+  <img class="avatar" src="https://yuz.one/images/avatar.png?v=1618826415697" alt="">
+  </a>
+  <h1 class="site-title">
+    明天再学
+  </h1>
+  <p class="site-description">
+    『明天再学』公众号文章备份
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              python加密
+            </h2>
+            <div class="post-info">
+              <span>
+                2021-04-19
+              </span>
+              <span>
+                9 min read
+              </span>
+              
+                <a href="https://yuz.one/GkoFI8qH-/" class="post-tag">
+                  # python
+                </a>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>长期以来，python 处理各种加密算法都没有一个统一好用的库，但是最近发现了 Cryptography 这个库，基本上统一了各个算法的使用方式，而且主流的加密算法都支持，以后可以尽量使用这个库处理加密问题。</p>
+<p>关于密码学的底层知识有非常多需要掌握，如果要深入学习建议看一下<a href="https://www.crypto101.io/?fileGuid=y6ggXqVxrCVDjGPg">Crypto 101</a>和 The<a href="https://cryptopals.com/?fileGuid=y6ggXqVxrCVDjGPg">Cryptopals Crypto Challenges</a>这两个在线教程。</p>
+<h3 id="1-快速开始">1、快速开始</h3>
+<p>如果只是想通过 python 快速进行加密解密的操作，不关注底层的实现算法，可以直接调用 Cryptography 提供的高层 API。</p>
+<pre><code class="language-python">from cryptography.fernet import Fernet
+key = Fernet.generate_key()
+# encrypt
+cipher = Fernet(key)
+ciphertext = cipher.encrypt(b&quot;wyz&quot;)
+# decrypt
+cipher = Fernet(key)
+plaintext = cipher.decrypt(ciphertext)
+</code></pre>
+<p>解密操作允许你控制密文的失效时间，比如你在 9:00 给了别人一个 token，这个 token 必须在 10秒钟之内被解密，超出这个时间 token 会失效。</p>
+<pre><code class="language-python">import time
+ciphertext = cipher.encrypt(b&quot;wyz&quot;)
+time.sleep(11)
+# 测试密文会失效
+plaintext = cipher.decrypt(ciphertext, ttl=10)
+</code></pre>
+<p>你可以通过密文查看加密时间：</p>
+<pre><code class="language-python">cipher.extract_timestamp(ciphertext)
+</code></pre>
+<h3 id="2-aes">2、AES</h3>
+<p>AES 是目前推荐的对称加密方式，使用这种加密方式需要准备以下数据：</p>
+<ul>
+<li>key，秘钥长度可以是128, 192 或者 256 位（bits)。</li>
+<li>mode，推荐使用 CBC</li>
+<li>iv，初始向量， 使用 CBC 方式必须提供</li>
+<li>padding, 补位方位，推荐用 PKCS7</li>
+</ul>
+<pre><code class="language-python">from cryptography.fernet import (
+    Cipher, algorithms, modes, padding
+)
+key = os.urandom(16)
+iv = os.urandom(16)
+cipher = Cipher(
+    algorithm=algorithms.AES(key),
+    mode=modes.CBC(iv)
+)
+encryptor = cipher.encryptor()
+padder = padding.PKCS7(128).padder()
+padder_data = padder.update(b'wyz') + padder.finalize()
+cipher_text = encryptor.update(padder_data) + encryptor.finalize()
+</code></pre>
+<p>可以封装成函数，以后直接使用：</p>
+<pre><code class="language-python">import os
+from cryptography.fernet import (
+    Cipher, algorithms, padding, modes
+)
+def aes_encrypt(plain_text, key, iv, mode=None, pad=None):
+    if not mode:
+        mode = modes.CBC
+    if not pad:
+        pad = padding.PKCS7
+    cipher = Cipher(
+        algorithm=algorithms.AES(key),
+        mode=mode(iv)
+    )
+    encryptor = cipher.encryptor()
+    padder = pad(len(key) * 8).padder()
+    padder_data = padder.update(plain_text) + padder.finalize()
+    cipher_text = encryptor.update(padder_data) + encryptor.finalize()
+    return cipher_text
+key = os.urandom(16)
+ct = aes_encrypt(b'wyz', key, key)
+</code></pre>
+<p>解码则是相反的：</p>
+<pre><code class="language-python">decryptor = cipher.decryptor()
+padder_data = decryptor.update(cipher_text) + decryptor.finalize()
+unpadder = padding.PKCS7(128).unpadder()
+plain_text = unpadder.update(padder_data) + unpadder.finalize()
+</code></pre>
+<p>也可以封装成函数模板，以后直接使用：</p>
+<pre><code class="language-python">import os
+from cryptography.fernet import (
+    Cipher, algorithms, padding, modes
+)
+def aes_decrypt(cipher_text, key, iv, mode=None, pad=None):
+    if not mode:
+        mode = modes.CBC
+    if not pad:
+        pad = padding.PKCS7
+    cipher = Cipher(
+        algorithm=algorithms.AES(key),
+        mode=mode(iv)
+    )
+    encryptor = cipher.decryptor()
+    
+    padder_data = encryptor.update(cipher_text) + encryptor.finalize()
+    unpadder = pad(len(key) * 8).unpadder()
+    plain_text = unpadder.update(padder_data) + unpadder.finalize()
+    return plain_text
+</code></pre>
+<h3 id=""></h3>
+<p>3、DES 和 3DES</p>
+<p>DES 的密钥过短，现在已经不推荐使用了，所以这个库没有 DES 的算法封装，如果你需要使用这种算法，推荐用 pyDes 这个库。 DES 需要提供以下数据：</p>
+<ul>
+<li>key 秘钥，56, 112, 或者 168 位（bits)</li>
+<li>mode 加密方式，可以是 ECB 和 CBC</li>
+<li>IV 初始向量，CBC 方式必须提供，加密的 IV 和解密的 IV 必须一致。</li>
+<li>pad 补位字符串，如果补位方式是 Normal, 必须提供，如果补位方式是 PAD_PKCS5， 不需要提供。</li>
+<li>padmode 补位方式，可以是 Normal 和 PAD_PKCS5，建议 PAD_PKCS5</li>
+</ul>
+<p>这个库使用 DES 加密，默认使用 ECB 方式，默认补位方式为 PKCS5 写法比较简单，得到的是一个 bytes 类型。</p>
+<pre><code class="language-python">import pyDes
+key = 'mysecret'
+cipher = pyDes.des(key, padmode=pyDes.PAD_PKCS5)
+encrypted = cipher.encrypt('abc')
+# &gt;&gt;&gt; b'v\x02J\x867\x8fQ\\'
+</code></pre>
+<p>解密的 key， mode， IV, pad， padmode 都和加密时保持一致：</p>
+<pre><code class="language-python">cipher = pyDes.des(key, padmode=pyDes.PAD_PKCS5)
+decrypted = cipher.decrypt(encrypted)
+# &gt;&gt;&gt; b'abc'
+</code></pre>
+<p>详细版加密</p>
+<pre><code class="language-python">import pyDes
+key = 'mysecret'
+cipher = pyDes.des(
+    key, 
+    mode=pyDes.CBC, # 模型
+    IV='\0\0\0\0\0\0\0\0', # IV
+    pad= ' ', # 空格补位
+    padmode=pyDes.PAD_NORMAL
+)
+encrypted = cipher.encrypt('abc')
+# &gt;&gt;&gt; b'v\x02J\x867\x8fQ\\'
+</code></pre>
+<p>详细版解密</p>
+<pre><code class="language-python">cipher = pyDes.des(
+key,
+mode=pyDes.CBC, # 模型
+IV='\0\0\0\0\0\0\0\0', # IV
+pad= ' ', # 空格补位
+padmode=pyDes.PAD_NORMAL
+)
+decrypted = cipher.decrypt(encrypted)
+# &gt;&gt;&gt; b'abc'
+</code></pre>
+<p>3DES 在 DES 的基础上增加了密钥长度，秘钥可以是 64, 128 或者 192 位（bits)， 3DES 目前也不推荐使用，因为他的速度非常慢。</p>
+<pre><code class="language-python">import pyDes
+import os
+key = os.urandom(16)
+cipher = pyDes.triple_des(key, padmode=pyDes.PAD_PKCS5)
+encrypted = cipher.encrypt('abc')
+# &gt;&gt;&gt; b'DGFx\xc6\xb4\xad@'
+cipher = pyDes.triple_des(key, padmode=pyDes.PAD_PKCS5)
+decrypted = cipher.decrypt(encrypted)
+# &gt;&gt;&gt; b'abc'
+</code></pre>
+<p>在 cryptography 中的使用和 AES 基本一致，只需要把算法名称改一下就可以了。</p>
+<pre><code class="language-python">from cryptography.fernet import (
+    Cipher, algorithms, modes, padding
+)
+key = os.urandom(16)
+iv = os.urandom(8)
+cipher = Cipher(
+    algorithm=algorithms.TripleDES(key),
+    mode=modes.CBC(iv)
+)
+encryptor = cipher.encryptor()
+padder = padding.PKCS7(128).padder()
+padder_data = padder.update(b'wyz') + padder.finalize()
+cipher_text = encryptor.update(padder_data) + encryptor.finalize()
+</code></pre>
+<h3 id="4-hash">4、hash</h3>
+<pre><code class="language-python">from cryptography.fernet import hashes
+hasher = hashes.Hash(hashes.SHA256())
+hasher.update(b'wyz')
+hasher.finalize()
+</code></pre>
+<h3 id="5-rsa">5、RSA</h3>
+<p>对称加密算法的密钥通常只是一个随机系列的字节，而RSA的密钥对是具有特定数学属性的复杂内部结构，需要通过特定的方式生成。通常来说需要提供两个参数：参数 public exponent 表示密钥生成的一个数学属性，通常就是 65537 这个特定的数字；参数 key size 表示生成的密钥长度，一般为 2048 或者 4096。1024 长度的已经很少使用了。</p>
+<p>使用下面代码可以生成密钥对：</p>
+<pre><code class="language-python">from cryptography.hazmat.primitives.asymmetric import (
+    rsa, padding
+)
+from cryptography.hazmat.primitives import hashes
+private_key = rsa.generate_private_key(
+    public_exponent=65537,
+    key_size=2048
+)
+public_key = private_key.public_key()
+print(private_key)
+print(public_key)
+</code></pre>
+<p>当密钥对生成以后，一般会保存到 pem 这样的文件中，或者会从文件中加载数据。</p>
+<pre><code class="language-python">from cryptography.hazmat.primitives import serialization
+pem = private_key.private_bytes(
+    encoding=serialization.Encoding.PEM,
+    format=serialization.PrivateFormat.PKCS8,
+ encryption_algorithm=serialization.BestAvailableEncryption(b'mypassword')
+)
+with open('/path/to/key.pem', 'rb') as key_file:
+    key = serialization.load_pem_private_key(
+        key_file.read(),
+        password=b'mypassword')
+    )
+</code></pre>
+<h3 id="6-rsa-加密和解密">6、RSA 加密和解密</h3>
+<p>有了密钥对之后，就可以通过 RSA 算法进行加解密了。使用公钥加密，提供 padding 补位方式，推荐使用 OAEP, 也可以使用 PKCS1v15。</p>
+<pre><code class="language-python">ciphertext = public_key.encrypt(
+    b&quot;hello world&quot;,
+    padding=padding.OAEP(
+        mgf=padding.MGF1(hashes.SHA256()),
+        algorithm=hashes.SHA256(),
+        label=None
+    )
+)
+</code></pre>
+<p>使用私钥解密：</p>
+<pre><code class="language-python">plaintext = private_key.decrypt(
+    ciphertext,
+    padding=padding.OAEP(
+        mgf=padding.MGF1(hashes.SHA256()),
+        algorithm=hashes.SHA256(),
+        label=None
+    )
+)
+print(plaintext)
+b'hello world'
+</code></pre>
+<h3 id="7-rsa-签名">7、RSA 签名</h3>
+<p>RSA 算法除了用来加密数据，还可以使用私钥生成签名传给消费者，消费者使用公钥和签名对数据进行校验，看是否为私钥持有者发送的数据，验证数据合法性。</p>
+<p>使用私钥签名：</p>
+<pre><code class="language-python">message = b&quot;A message from server&quot;
+signature = private_key.sign(
+    message,
+    padding=padding.PSS(
+        mgf=padding.MGF1(hashes.SHA256()),
+        salt_length=padding.PSS.MAX_LENGTH
+    ),
+    algorithm=hashes.SHA256()
+)
+</code></pre>
+<p>使用公钥验证数据，如果数据生成的签名不合法，则抛出 InvalidSignature 错误。</p>
+<pre><code class="language-python">public_key.verify(
+    signature,
+    message,
+    padding=padding.PSS(
+        mgf=padding.MGF1(hashes.SHA256()),
+        salt_length=padding.PSS.MAX_LENGTH
+    ),
+    algorithm=hashes.SHA256()
+)
+</code></pre>
+<p>签名的时候，如果数据过大，可以把数据分片，对每个部分单独执行 hash, 再把hash 后的对象传给 Prehashed.</p>
+<pre><code class="language-python">from cryptography.hazmat.primitives import hashes
+from cryptography.hazmat.primitives.asymmetric import (
+    padding, rsa, utils
+)
+hasher = hashes.Hash(hashes.SHA256())
+hasher.update(b&quot;part 1&quot;)
+hasher.update(b&quot;part 2&quot;)
+digest = hasher.finalize()
+signature = private_key.sign(
+    digest,
+    padding=padding.PSS(
+        mgf=padding.MGF1(hashes.SHA256()),
+        salt_length=padding.PSS.MAX_LENGTH
+    ),
+    algorithm=utils.Prehashed(hashes.SHA256())
+)
+public_key.verify(
+    signature,
+    digest,
+    padding=padding.PSS(
+        mgf=padding.MGF1(hashes.SHA256()),
+        salt_length=padding.PSS.MAX_LENGTH
+    ),
+    algorithm=utils.Prehashed(hashes.SHA256())
+)
+</code></pre>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#1-%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B">1、快速开始</a></li>
+<li><a href="#2-aes">2、AES</a></li>
+<li></li>
+<li><a href="#4-hash">4、hash</a></li>
+<li><a href="#5-rsa">5、RSA</a></li>
+<li><a href="#6-rsa-%E5%8A%A0%E5%AF%86%E5%92%8C%E8%A7%A3%E5%AF%86">6、RSA 加密和解密</a></li>
+<li><a href="#7-rsa-%E7%AD%BE%E5%90%8D">7、RSA 签名</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://yuz.one/you-hua-zi-dong-hua-ce-shi-liu-cheng-shi-yong-flask-kai-fa-yi-ge-toy-jenkins-gong-ju/">
+              <h3 class="post-title">
+                优化自动化测试流程，使用 flask 开发一个 toy jenkins工具
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  copyright@『明天再学』公众号
+  <a class="rss" href="https://yuz.one/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
