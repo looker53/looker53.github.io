@@ -1,0 +1,317 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>为什么在微服务中需要契约测试？看看这个案例 | 明天再学</title>
+<link rel="shortcut icon" href="https://yuz.one/favicon.ico?v=1619089329284">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://yuz.one/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="为什么在微服务中需要契约测试？看看这个案例 | 明天再学 - Atom Feed" href="https://yuz.one/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="要理解什么是契约测试，建议先看一下这个视频，讲得非常精彩。
+
+首先我介绍一下公司的情况。我们使用的是微服务架构，每个部分会负责其中的几个微服务的研发和维护。我所在的部门维护公司的支付服务（billing），这个服务需要依赖其他部门的几个服务..." />
+    <meta name="keywords" content="测试" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://yuz.one">
+  <img class="avatar" src="https://yuz.one/images/avatar.png?v=1619089329284" alt="">
+  </a>
+  <h1 class="site-title">
+    明天再学
+  </h1>
+  <p class="site-description">
+    『明天再学』公众号文章备份
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              为什么在微服务中需要契约测试？看看这个案例
+            </h2>
+            <div class="post-info">
+              <span>
+                2021-04-22
+              </span>
+              <span>
+                8 min read
+              </span>
+              
+                <a href="https://yuz.one/jr4f84iIgJ/" class="post-tag">
+                  # 测试
+                </a>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>要理解什么是契约测试，建议先看一下<a href="https://www.youtube.com/watch?v=-6x6XBDf9sQ">这个视频</a>，讲得非常精彩。</p>
+<p><video src='attach/Verifying Microservice Integrations with Contract Testing - Atlassian Summit 2016.mkv'></video></p>
+<p>首先我介绍一下公司的情况。我们使用的是微服务架构，每个部分会负责其中的几个微服务的研发和维护。我所在的部门维护公司的支付服务（billing），这个服务需要依赖其他部门的几个服务。</p>
+<p>当用户需要支付一笔订单时，会调用 billing 服务，同时携带很多参数，为了方便，我们先只考虑核心的两个参数：用户 id 和支付金额。</p>
+<p>当 billing 接收到用户请求时，会调用其他的依赖服务，用户服务（user）是其中的一个。我们需要查询该用户是否有足够多的余额可以支付订单。</p>
+<figure data-type="image" tabindex="1"><img src="https://gitee.com/looker53/pics/raw/master/img//20210422152812.png" alt="" loading="lazy"></figure>
+<pre><code class="language-python">def pay(uid, amount):
+    &quot;&quot;&quot;付款&quot;&quot;&quot;
+    user_host = app.config.get(&quot;user_server_host&quot;)
+    user_server = f'{user_host}/user/{uid}/pay'
+    resp = httpx.get(user_server)
+    user = resp.json()
+
+    if user.get('balance') &lt; amount:
+        return {&quot;msg&quot;: &quot;not enough money&quot;}
+
+    return {
+        &quot;msg&quot;: &quot;success&quot;,
+        &quot;amount&quot;: amount,
+        &quot;uid&quot;: uid
+    }
+</code></pre>
+<p>user 被很多服务调用，而 billing 主要想消费它的 balance 字段校验余额是否足够。 user 判断如果是 billing 请求的 <code>/user/&lt;uid&gt;</code> 接口，则把余额给它。其他的消费者请求时返回的数据不太一样。</p>
+<pre><code class="language-python">def user_info(uid, src):
+    &quot;&quot;&quot;用户信息&quot;&quot;&quot;
+    if src == 'pay':
+        return {
+            &quot;id&quot;: uid,
+            &quot;balance&quot;: 8000
+        }
+    elif src == 'manage':
+        return {
+            &quot;id&quot;: uid,
+            &quot;age&quot;: 19
+        }
+    ...
+</code></pre>
+<p>某一天用户直接反馈支付出错，但是我们最近都没有对 billing 服务进行任何的修改，显然，这个突发情况可能不是由我们部门引起的。</p>
+<p>我们只能紧急的去线上排查问题，通过一系列分析，终于发现是 user 服务返回的余额字段由 balance 改成了 user_balance，其他没有发生任何变化。user 服务修改了代码，却没有通知我们。<strong>数据结构的轻微变化</strong>导致我们根本拿不到 balance 字段，所以我们的支付服务无法继续。</p>
+<figure data-type="image" tabindex="2"><img src="https://gitee.com/looker53/pics/raw/master/img//20210422153215.png" alt="" loading="lazy"></figure>
+<p>于是我只能立马给 user 部门发邮件。在微服务的维护过程中，<strong>最简单有效的测试工具是邮件。</strong> 因为一个服务往往依赖于其他多个服务，又被另外的服务依赖，导致最后的数据流向变得跟蜘蛛网一样。可是当涉及到跨部门协作的时候，沟通起来也并不那么容易。</p>
+<p>我们来看一下这么简单的一处改动会涉及到的流程。首先，user 服务收到需求更改，修改代码之后，user 的测试人员会对自己服务进行组件测试，但是 billing 调用 user 的集成测试他们没有办法测，因为他们根本不知道 billing 是怎么消费它提供的数据的。</p>
+<p>user 决定通知所有的下游服务，凡是使用了我这个服务，这个接口的，通通发一遍邮件，麻烦你们各自部门测试一下你们的业务，我的 <code>/user/&lt;id&gt;</code> 接口进行了修改，可能会引发你们的服务异常。其他部门收到通知以后，再针对性的测试这个接口。</p>
+<p>这些下游部门会因为一处小改动，浪费非常多的时间和资源。为什么呢？billing 服务是受到修改影响的，所以对我们来说是必要的。但是其他的服务虽然调用了  <code>/user/&lt;id&gt;</code> 这个接口，却并没有消费 balance 这个字段，balance 字段的改动对他们不会产生任何影响。但是他们在测试之前是不知道会不会有影响的，是不是浪费时间呢？</p>
+<p>还有一个问题，billing 部门难道不可以建立对 user 服务的集成测试吗？当然可以，实际上我们有专门 mock user 服务的测试，也有对 user 的集成测试，偶尔也会进行手工测试。</p>
+<p>但是mock测试、集成测试和手工测试这些测试手段都不能及时发现问题。</p>
+<p>首先我们看看 mock 测试。mock 服务器是由我们自己掌控的，他的结果是不可信赖的，并不能完全代替真实服务，我们之所以用 mock，是因为快、可控、稳定性高，而且能做到环境隔离。</p>
+<p>当真实的 user 服务发生变动时，mock 的数据格式并不能及时更新，所以这些测试用例并不会爆红，而是继续通过。</p>
+<figure data-type="image" tabindex="3"><img src="https://gitee.com/looker53/pics/raw/master/img//20210422153626.png" alt="" loading="lazy"></figure>
+<p>而集成测试和手工测试都有相同的缺陷，他们太慢了。billing 部门的整套集成测试从构建到结束需要 5 个小时，手工测试一轮就更久了。也就是说，我们至少需要 5 个小时才能发现我们依赖的服务发生了变化，而这个问题早就引发了我们的系统瘫痪长达 5 个小时之久。</p>
+<p>契约测试是融合了 mock 测试和集成测试的综合性测试手段，他把消费者 billing 编写的测试用例形成契约文件（contract file），放到提供者 user 端去构建。当代码修改以后，提供者 user 先针对所有的契约文件构建一次测试，如果所有的契约文件都满足，没有造成毁约现象，就可以上线了。如果有毁约，则需要和被毁约方协商解决，再上线。</p>
+<p>附消费者和提供者示例代码，以及mock测试和集成测试示例代码：</p>
+<p>billing server:</p>
+<pre><code class="language-python"># -----------------------------------------------
+# Author: yuz
+# Email: wagyu2016@163.com
+# Phone&amp;Wechat: 18173179913
+# -----------------------------------------------
+import httpx
+from flask import (Flask,
+                   request)
+
+
+app = Flask(__name__)
+
+
+app.config.update(user_server_host='http://localhost:5001')
+
+
+@app.route('/pay/&lt;uid&gt;/&lt;int:amount&gt;')
+def pay(uid, amount):
+    &quot;&quot;&quot;付款&quot;&quot;&quot;
+    user_host = app.config.get(&quot;user_server_host&quot;)
+    user_server = f'{user_host}/user/{uid}/pay'
+    resp = httpx.get(user_server)
+    user = resp.json()
+
+    if user.get('balance') &lt; amount:
+        return {&quot;msg&quot;: &quot;not enough money&quot;}
+
+    return {
+        &quot;msg&quot;: &quot;success&quot;,
+        &quot;amount&quot;: amount,
+        &quot;uid&quot;: uid
+    }
+
+
+if __name__ == '__main__':
+    app.run(port=5000, debug=True)
+</code></pre>
+<p>user_server：</p>
+<pre><code class="language-python"># -----------------------------------------------
+# Author: yuz
+# Email: wagyu2016@163.com
+# Phone&amp;Wechat: 18173179913
+# -----------------------------------------------
+
+from flask import (Flask,
+                   request)
+
+
+app = Flask(__name__)
+
+
+@app.route('/user/&lt;uid&gt;/&lt;src&gt;')
+def user_info(uid, src):
+    &quot;&quot;&quot;付款&quot;&quot;&quot;
+    if src == 'pay':
+        return {
+            &quot;id&quot;: uid,
+            &quot;balance&quot;: 8000
+        }
+    elif src == 'manage':
+        return {
+            &quot;id&quot;: uid,
+            &quot;age&quot;: 19
+        }
+    ...
+
+
+if __name__ == '__main__':
+    app.run(port=5001)
+</code></pre>
+<p>测试代码：</p>
+<pre><code class="language-python">import unittest
+from billing_server import app
+
+
+class TestBilling(unittest.TestCase):
+    def test_mock_user_server(self):
+        app.config.update(user_server_host='http://localhost:5002')
+        with app.test_client() as client:
+            resp = client.get('/pay/1/100')
+            assert b&quot;amount&quot; in resp.data
+
+    def test_real_user_server(self):
+        app.config.update(user_server_host='http://localhost:5001')
+        with app.test_client() as client:
+            resp = client.get('/pay/1/100')
+            assert b&quot;amount&quot; in resp.data
+
+
+if __name__ == '__main__':
+    unittest.main()
+</code></pre>
+<p>真实的 user 服务更新后，bill 服务端的测试用例如果 mock 了依赖的 user 服务，测试用例会继续通过，因为 mock 服务是不可信赖的。</p>
+<p>如果使用集成测试方法，直接调用远端的服务，不可避免的会造成测试运行很慢，如果整套测试运行需要 2 个小时，则会造成用户无法使用  2 个小时后，才能发现问题。</p>
+
+              </div>
+              <div class="toc-container">
+                
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://yuz.one/shi-me-shi-qi-yue-ce-shi/">
+              <h3 class="post-title">
+                什么是契约测试
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  copyright@『明天再学』公众号
+  <a class="rss" href="https://yuz.one/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

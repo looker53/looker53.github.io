@@ -1,0 +1,212 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>什么是契约测试 | 明天再学</title>
+<link rel="shortcut icon" href="https://yuz.one/favicon.ico?v=1619089329284">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://yuz.one/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="什么是契约测试 | 明天再学 - Atom Feed" href="https://yuz.one/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="单身俱乐部目前有 2 个人。A 很宅，几乎不认识任何异性。P 人脉很广，有很多人的信息，并且他会把自己的通讯录用固定的格式保存起来。
+{
+	&quot;name&quot;: &quot;lisa&quot;,
+    &quot;age&..." />
+    <meta name="keywords" content="测试" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://yuz.one">
+  <img class="avatar" src="https://yuz.one/images/avatar.png?v=1619089329284" alt="">
+  </a>
+  <h1 class="site-title">
+    明天再学
+  </h1>
+  <p class="site-description">
+    『明天再学』公众号文章备份
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              什么是契约测试
+            </h2>
+            <div class="post-info">
+              <span>
+                2021-04-22
+              </span>
+              <span>
+                6 min read
+              </span>
+              
+                <a href="https://yuz.one/jr4f84iIgJ/" class="post-tag">
+                  # 测试
+                </a>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>单身俱乐部目前有 2 个人。A 很宅，几乎不认识任何异性。P 人脉很广，有很多人的信息，并且他会把自己的通讯录用固定的格式保存起来。</p>
+<pre><code class="language-json">{
+	&quot;name&quot;: &quot;lisa&quot;,
+    &quot;age&quot;: 18,
+    &quot;height&quot;: 172,
+    &quot;address&quot;: &quot;xxx city&quot;,
+    &quot;salary&quot;: 22000
+}
+</code></pre>
+<p>A 和 P 说，你能把你的数据卖给我吗？ P 很高兴的答应了，并且和 A 签订合同（契约），每次 A 发起请求，P 就按约定给出姓名和年龄的数据。A 是数据的消费者(Consumer)，D 是数据的提供者(Provider)。</p>
+<figure data-type="image" tabindex="1"><img src="https://gitee.com/looker53/pics/raw/master/img//20210421172907.png" alt="" loading="lazy"></figure>
+<p>P 发现这个生意很好做，自己提供的服务非常单一(微服务)，但是有非常大的需求，有很多人愿意和自己签订合同，他们每个人需要的数据各不相同，所以每份合同都不一样。</p>
+<figure data-type="image" tabindex="2"><img src="https://gitee.com/looker53/pics/raw/master/img//20210421175036.png" alt="" loading="lazy"></figure>
+<p>有一天，老客户 A 找到 P，他需要名字分成 first name 和 last name，D 当即答应，马上将自己的数据存储格式进行了修改。</p>
+<figure data-type="image" tabindex="3"><img src="https://gitee.com/looker53/pics/raw/master/img//20210421175257.png" alt="" loading="lazy"></figure>
+<p>现在 A 能够非常方便的获取到自己想要的数据，但是客户 C 的数据缺收到了影响，他得到的数据结构不是按照合同里约定的格式了，自己得到的数据发生了变化，于是告 P 毁约。</p>
+<figure data-type="image" tabindex="4"><img src="https://gitee.com/looker53/pics/raw/master/img//20210421180204.png" alt="" loading="lazy"></figure>
+<p>如果 P 只有一个 consumer A，他们直接修改合同就可以了，通常不会造成毁约现象，也就不需要用到所谓的契约测试。但是在微服务这样的架构中，一个 provider 往往对应多个consumer，当其中某个 consumer 提出修改契约后，往往会对其他的 consumer 造成影响，此时就需要用到契约测试了。</p>
+<p>契约测试就是：当 provider 的代码改动以后，它产生的<strong>数据结构变化</strong>不会对任何 consumer 产生毁约现象，在微服务架构中可以使用，在单体架构中照样可以使用。当测试到即将毁约的情况，需要提醒对哪些 consumer 造成了影响，此时必须协商，多方达成一致，才能继续履行契约。</p>
+<p>实际上除了契约测试，传统的测试方式也可以达到同样的测试目的？</p>
+<p>首先来看看第一种，consumer 可以对 provider 的服务进行测试，一般就是以直接访问API 作为测试形式。当发现测试不通过时，通知 provider 。</p>
+<p>但是这种方式除了针对数据结构设计用例，还会有其他非常多的异常用例，执行效率很慢，找到问题再加上需要多方协商，更慢。 契约测试只需要保证数据结构是正常的就可以了，并不需要对数据的值进行测试，契约测试也只需要考虑正向用例能否引发异常，不需要考虑异常用例。</p>
+<figure data-type="image" tabindex="5"><img src="https://gitee.com/looker53/pics/raw/master/img//20210422175905.png" alt="" loading="lazy"></figure>
+<p>第二种是集成测试，consumer 可以对自己服务和 provider 设计集成测试，模拟用户发送请求给 consumer 服务，consumer 再调用 provider 服务。</p>
+<p>这种方式比第一种方式更慢，而且他不能精准的定位是 Consumer 自己引发的问题，还是 provider 引发的，需要进一步排查。</p>
+<figure data-type="image" tabindex="6"><img src="https://gitee.com/looker53/pics/raw/master/img//20210422181353.png" alt="" loading="lazy"></figure>
+<p>这两种测试方式都是由 consumer 发起的，而不是 provider 。难道 provider 自己不测试自己的服务吗？他们当然会测，只是他们只能测试自己的单个组件，还有他们依赖的上层服务，但是他们无法测试 consumer 的逻辑，因为他们根本不知道 consumer 是怎么使用他们服务的。</p>
+<p><strong>契约测试虽然被测对象是 provider ，但是需要保证的却是 consumer 的业务。</strong></p>
+<p>我们来总结一下，为什么需要专门的契约测试。</p>
+<p>第一点，你可以想象一下，你就是 provider。 当你修改完代码之后，什么时候可以确定自己修改的代码质量没有问题呢？ 首先，你得找到有哪些 consumer 依赖了自己的服务，然后，你只能祈祷所有的 consumer 快点完成他们的测试，至于到底什么时候能完成，你只能多走几遍跨部门协作的流程，多催催他们。 实际上，因为每个服务的复杂程度不一样，所以测试的效率会有很大区别。</p>
+<p>以上对于 provider 的接口和集成测试，虽然是由 consumer 驱动的，能够保证 consumer 的质量，但是 provider 只能被动接收由多个 consumer 组成的测试结果。</p>
+<p>第二点，无论是传统的接口测试还是集成测试，不仅需要检测数据的结构，而且需要检测测试的数据，而契约测试通常只需要检测数据结构，查看是否包含了 name 和 age 等 consumer 需要的字段。</p>
+<p>契约测试是专门测试数据结构的综合性测试方法。通常来说，它由 consumer 发起测试，然后将测试数据形成契约文件发送给 provider ，由 provider 根据契约文件执行测试，这样 provider 就能自己控制测试进度，主动获取结果。</p>
+<p>在形式上比较类似接口测试，因为它们都是通过访问服务来确定是否通过测试，但接口测试需要关注全部的调用场景，比如正向和异常场景，而契约测试一般只关注正向的消息结构是否正确。</p>
+<p>对于一个返回的消息，契约测试关注它有多少个字段、每个字段的值是什么类型，但是一般不会去校验字段的值到底等于多少。所以契约测试一般不需要关注数据，而是重点关注数据的结构（schema)。</p>
+<p>参考：</p>
+<ul>
+<li><a href="https://www.youtube.com/watch?v=-6x6XBDf9sQ">Verifying Microservice Integrations with Contract Testing - Atlassian Summit 2016</a></li>
+<li><a href="https://ariman.cn/2019/05/19/%E5%A5%91%E7%BA%A6%E6%B5%8B%E8%AF%95%E4%B9%8B%E6%A0%B8%E5%BF%83%E8%A7%A3%E6%83%91/">契约测试之核心解惑</a></li>
+<li>https://devopshub.cn/2018/12/24/contract_test/</li>
+</ul>
+
+              </div>
+              <div class="toc-container">
+                
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://yuz.one/python-jia-mi/">
+              <h3 class="post-title">
+                python加密
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  copyright@『明天再学』公众号
+  <a class="rss" href="https://yuz.one/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
