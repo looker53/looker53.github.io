@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://yuz.one</id>
     <title>明天再学</title>
-    <updated>2021-04-22T11:06:06.193Z</updated>
+    <updated>2021-05-06T12:20:42.425Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://yuz.one"/>
     <link rel="self" href="https://yuz.one/atom.xml"/>
@@ -10,6 +10,13 @@
     <logo>https://yuz.one/images/avatar.png</logo>
     <icon>https://yuz.one/favicon.ico</icon>
     <rights>All rights reserved 2021, 明天再学</rights>
+    <entry>
+        <title type="html"><![CDATA[ 安卓官方模拟器使用]]></title>
+        <id>https://yuz.one/an-zhuo-guan-fang-mo-ni-qi-shi-yong/</id>
+        <link href="https://yuz.one/an-zhuo-guan-fang-mo-ni-qi-shi-yong/">
+        </link>
+        <updated>2021-05-06T12:18:20.000Z</updated>
+    </entry>
     <entry>
         <title type="html"><![CDATA[为什么在微服务中需要契约测试？看看这个案例]]></title>
         <id>https://yuz.one/wei-shi-me-zai-wei-fu-wu-zhong-xu-yao-qi-yue-ce-shi-kan-kan-zhe-ge-an-li/</id>
@@ -76,12 +83,5 @@
         <link href="https://yuz.one/shu-ju-qu-dong-bu-gua-he-zuo-ui-zi-dong-hua-ce-shi/">
         </link>
         <updated>2021-02-24T06:57:45.000Z</updated>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[jsonpath 教程]]></title>
-        <id>https://yuz.one/jsonpath-ng-jiao-cheng/</id>
-        <link href="https://yuz.one/jsonpath-ng-jiao-cheng/">
-        </link>
-        <updated>2021-01-28T06:55:34.000Z</updated>
     </entry>
 </feed>
