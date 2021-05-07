@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://yuz.one</id>
     <title>明天再学</title>
-    <updated>2021-05-06T12:44:08.192Z</updated>
+    <updated>2021-05-07T11:00:06.909Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://yuz.one"/>
     <link rel="self" href="https://yuz.one/atom.xml"/>
@@ -10,6 +10,13 @@
     <logo>https://yuz.one/images/avatar.png</logo>
     <icon>https://yuz.one/favicon.ico</icon>
     <rights>All rights reserved 2021, 明天再学</rights>
+    <entry>
+        <title type="html"><![CDATA[自动化测试配置 hook 函数]]></title>
+        <id>https://yuz.one/zi-dong-hua-ce-shi-pei-zhi-hook-han-shu/</id>
+        <link href="https://yuz.one/zi-dong-hua-ce-shi-pei-zhi-hook-han-shu/">
+        </link>
+        <updated>2021-05-07T09:54:50.000Z</updated>
+    </entry>
     <entry>
         <title type="html"><![CDATA[ 安卓官方模拟器使用]]></title>
         <id>https://yuz.one/an-zhuo-guan-fang-mo-ni-qi-shi-yong/</id>
@@ -76,12 +83,5 @@
         <link href="https://yuz.one/du-qu-excel-ce-shi-shu-ju-zhen-de-man-ma/">
         </link>
         <updated>2021-02-24T07:35:29.000Z</updated>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[数据驱动不适合做 UI 自动化测试]]></title>
-        <id>https://yuz.one/shu-ju-qu-dong-bu-gua-he-zuo-ui-zi-dong-hua-ce-shi/</id>
-        <link href="https://yuz.one/shu-ju-qu-dong-bu-gua-he-zuo-ui-zi-dong-hua-ce-shi/">
-        </link>
-        <updated>2021-02-24T06:57:45.000Z</updated>
     </entry>
 </feed>
