@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://yuz.one</id>
     <title>明天再学</title>
-    <updated>2021-05-07T11:00:06.909Z</updated>
+    <updated>2021-05-08T12:44:38.856Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://yuz.one"/>
     <link rel="self" href="https://yuz.one/atom.xml"/>
@@ -10,6 +10,13 @@
     <logo>https://yuz.one/images/avatar.png</logo>
     <icon>https://yuz.one/favicon.ico</icon>
     <rights>All rights reserved 2021, 明天再学</rights>
+    <entry>
+        <title type="html"><![CDATA[自动化测试无代码化断言]]></title>
+        <id>https://yuz.one/zi-dong-hua-ce-shi-wu-dai-ma-hua-duan-yan/</id>
+        <link href="https://yuz.one/zi-dong-hua-ce-shi-wu-dai-ma-hua-duan-yan/">
+        </link>
+        <updated>2021-05-08T12:44:12.000Z</updated>
+    </entry>
     <entry>
         <title type="html"><![CDATA[自动化测试配置 hook 函数]]></title>
         <id>https://yuz.one/zi-dong-hua-ce-shi-pei-zhi-hook-han-shu/</id>
@@ -76,12 +83,5 @@
         <link href="https://yuz.one/selenium-qi-dong-shi-hui-yu-dao-na-xie-keng/">
         </link>
         <updated>2021-02-27T08:03:59.000Z</updated>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[读取excel测试数据真的慢吗？]]></title>
-        <id>https://yuz.one/du-qu-excel-ce-shi-shu-ju-zhen-de-man-ma/</id>
-        <link href="https://yuz.one/du-qu-excel-ce-shi-shu-ju-zhen-de-man-ma/">
-        </link>
-        <updated>2021-02-24T07:35:29.000Z</updated>
     </entry>
 </feed>
